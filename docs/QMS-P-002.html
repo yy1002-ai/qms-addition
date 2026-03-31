@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品質目標管理手順 QMS-P-002 — 神戸電気株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0d1b2a;--accent:#1e6fc4;--accent-bright:#2d8de0;--gold-light:#e0c06e;--green:#3aaa6e;--text:#e8edf3;--text-muted:#8ca0b8;--text-dim:#5a7090;--border:rgba(30,111,196,0.25);--border-light:rgba(30,111,196,0.12);--card-bg:rgba(19,35,56,0.85);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Noto Sans JP',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;line-height:1.8;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(30,111,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,196,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+  header{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+  .header-left{display:flex;align-items:center;gap:16px;}
+  .logo-mark{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:#fff;}
+  .company-name{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;}
+  .system-label{font-size:11px;color:var(--text-muted);letter-spacing:0.08em;margin-top:2px;}
+  .header-right{display:flex;align-items:center;gap:12px;}
+  .back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:rgba(30,111,196,0.1);border:1px solid var(--border);color:var(--text-muted);font-size:12px;text-decoration:none;transition:all 0.15s;}
+  .back-btn:hover{color:var(--text);background:rgba(30,111,196,0.2);}
+  .doc-badge{background:rgba(30,111,196,0.15);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:11px;font-family:'DM Mono',monospace;color:var(--accent-bright);}
+  .page-wrap{position:relative;z-index:1;display:grid;grid-template-columns:260px 1fr;max-width:1300px;margin:0 auto;padding:40px 32px 80px;gap:32px;align-items:start;}
+  .toc{position:sticky;top:88px;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .toc-header{padding:14px 20px;border-bottom:1px solid var(--border-light);font-size:11px;font-weight:700;letter-spacing:0.12em;color:var(--text-muted);text-transform:uppercase;}
+  .toc-body{padding:12px 0;}
+  .toc-item{display:block;padding:7px 20px;font-size:12px;color:var(--text-muted);text-decoration:none;transition:all 0.15s;border-left:2px solid transparent;}
+  .toc-item:hover{color:var(--text);background:rgba(30,111,196,0.06);}
+  .toc-item.active{color:var(--accent-bright);border-left-color:var(--accent);background:rgba(30,111,196,0.08);}
+  .toc-item-sub{display:block;padding:5px 20px 5px 32px;font-size:11px;color:var(--text-dim);text-decoration:none;}
+  .toc-item-sub:hover{color:var(--text-muted);}
+  .doc-content{min-width:0;}
+  .doc-header{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:32px 36px;margin-bottom:28px;}
+  .doc-id{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent-bright);letter-spacing:0.1em;margin-bottom:10px;}
+  .doc-title{font-family:'Noto Serif JP',serif;font-size:28px;font-weight:700;line-height:1.3;margin-bottom:20px;}
+  .doc-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border-radius:8px;overflow:hidden;border:1px solid var(--border-light);margin-top:20px;}
+  .doc-meta-item{background:rgba(13,27,42,0.6);padding:12px 16px;}
+  .doc-meta-label{font-size:10px;color:var(--text-dim);letter-spacing:0.08em;margin-bottom:4px;text-transform:uppercase;}
+  .doc-meta-value{font-size:13px;font-weight:500;color:var(--text);}
+  .doc-section{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:32px 36px;margin-bottom:20px;}
+  .section-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent-bright);letter-spacing:0.1em;margin-bottom:8px;}
+  .section-title{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;padding-bottom:14px;border-bottom:1px solid var(--border-light);margin-bottom:20px;}
+  .section-title-sm{font-size:14px;font-weight:700;color:var(--accent-bright);margin:20px 0 8px;display:flex;align-items:center;gap:8px;}
+  .section-title-sm::before{content:'';display:block;width:3px;height:14px;background:var(--accent);border-radius:2px;}
+  p{font-size:14px;color:var(--text);line-height:1.9;margin-bottom:14px;}
+  p:last-child{margin-bottom:0;}
+  .doc-list{padding-left:0;list-style:none;margin-bottom:14px;}
+  .doc-list li{font-size:14px;color:var(--text);line-height:1.8;padding:6px 0 6px 20px;position:relative;border-bottom:1px solid var(--border-light);}
+  .doc-list li:last-child{border-bottom:none;}
+  .doc-list li::before{content:'–';position:absolute;left:0;color:var(--accent-bright);font-family:'DM Mono',monospace;}
+  .obj-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+  .obj-table th{background:rgba(30,111,196,0.12);padding:10px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--accent-bright);border-bottom:1px solid var(--border);}
+  .obj-table td{padding:11px 14px;color:var(--text);border-bottom:1px solid var(--border-light);line-height:1.6;vertical-align:top;}
+  .obj-table tr:last-child td{border-bottom:none;}
+  .obj-table tr:hover td{background:rgba(30,111,196,0.04);}
+  .smart-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0;}
+  .smart-card{background:rgba(13,27,42,0.6);border:1px solid var(--border-light);border-radius:8px;padding:12px;text-align:center;}
+  .smart-letter{font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--accent-bright);margin-bottom:4px;}
+  .smart-word{font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;}
+  .smart-desc{font-size:11px;color:var(--text-muted);line-height:1.4;}
+  .note-box{background:rgba(30,111,196,0.06);border:1px solid var(--border-light);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;color:var(--text-muted);line-height:1.7;margin-top:16px;}
+  .note-box strong{color:var(--accent-bright);}
+  .rev-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .rev-table th{background:rgba(30,111,196,0.12);padding:10px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--accent-bright);border-bottom:1px solid var(--border);}
+  .rev-table td{padding:10px 14px;color:var(--text);border-bottom:1px solid var(--border-light);line-height:1.6;}
+  .rev-table tr:last-child td{border-bottom:none;}
+  footer{position:relative;z-index:1;border-top:1px solid var(--border-light);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-dim);font-family:'DM Mono',monospace;max-width:1300px;margin:0 auto;}
+  @media(max-width:900px){.page-wrap{grid-template-columns:1fr;}.toc{position:static;}.doc-meta-grid{grid-template-columns:repeat(2,1fr);}.smart-grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="logo-mark">KE</div>
+    <div>
+      <div class="company-name">神戸電気株式会社</div>
+      <div class="system-label">品質マネジメントシステム</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="back-btn" href="../index.html">← ダッシュボードへ戻る</a>
+    <div class="doc-badge">QMS-P-002</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <nav class="toc">
+    <div class="toc-header">目次</div>
+    <div class="toc-body">
+      <a class="toc-item" href="#sec0">文書情報</a>
+      <a class="toc-item" href="#sec1">1. 目的</a>
+      <a class="toc-item" href="#sec2">2. 適用範囲</a>
+      <a class="toc-item" href="#sec3">3. 責任と権限</a>
+      <a class="toc-item" href="#sec4">4. 品質目標の要件</a>
+      <a class="toc-item" href="#sec5">5. 手順</a>
+        <a class="toc-item-sub" href="#sec5-1">5.1 目標の設定</a>
+        <a class="toc-item-sub" href="#sec5-2">5.2 達成計画の策定</a>
+        <a class="toc-item-sub" href="#sec5-3">5.3 進捗の監視</a>
+        <a class="toc-item-sub" href="#sec5-4">5.4 年次レビュー</a>
+      <a class="toc-item" href="#sec6">6. 品質目標の例示</a>
+      <a class="toc-item" href="#sec7">7. 関連文書・記録</a>
+      <a class="toc-item" href="#sec-rev">改訂履歴</a>
+    </div>
+  </nav>
+
+  <main class="doc-content">
+
+    <div class="doc-header" id="sec0">
+      <div class="doc-id">LAYER 02 — 手順書</div>
+      <div class="doc-title">品質目標管理手順</div>
+      <p style="color:var(--text-muted);font-size:13px;">本手順書は、品質目標の設定・達成計画の策定・進捗管理・年次レビューに関する手順を定める。ISO 9001:2026 箇条6.2に対応する。</p>
+      <div class="doc-meta-grid">
+        <div class="doc-meta-item"><div class="doc-meta-label">文書番号</div><div class="doc-meta-value">QMS-P-002</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">版数</div><div class="doc-meta-value">第1版</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">制定日</div><div class="doc-meta-value">2025.06.10</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">承認者</div><div class="doc-meta-value">社長</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">作成者</div><div class="doc-meta-value">品質部長</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">対応箇条</div><div class="doc-meta-value">ISO 9001:2026 6.2</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">次回見直し</div><div class="doc-meta-value">2026.06.10</div></div>
+        <div class="doc-meta-item"><div class="doc-meta-label">機密区分</div><div class="doc-meta-value">社外秘</div></div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="sec1">
+      <div class="section-num">SECTION 01</div>
+      <div class="section-title">目的</div>
+      <p>本手順書は、品質方針と整合した品質目標を設定し、その達成に向けた計画の策定・進捗管理・年次評価を通じて、QMSの継続的改善を確実にすることを目的とする。</p>
+    </div>
+
+    <div class="doc-section" id="sec2">
+      <div class="section-num">SECTION 02</div>
+      <div class="section-title">適用範囲</div>
+      <p>本手順書は、神戸電気株式会社のQMS適用範囲内のすべての部門・プロセスに設定する品質目標に適用する。</p>
+    </div>
+
+    <div class="doc-section" id="sec3">
+      <div class="section-num">SECTION 03</div>
+      <div class="section-title">責任と権限</div>
+      <ul class="doc-list">
+        <li><strong>社長：</strong>全社品質目標の最終承認</li>
+        <li><strong>品質部長：</strong>全社品質目標の取りまとめ・進捗管理・年次レビューの主催</li>
+        <li><strong>各部門長：</strong>担当部門の品質目標の設定・達成計画の実施・進捗報告</li>
+      </ul>
+    </div>
+
+    <div class="doc-section" id="sec4">
+      <div class="section-num">SECTION 04</div>
+      <div class="section-title">品質目標の要件（SMART原則）</div>
+      <p>品質目標はISO 9001:2026の要求に従い、以下のSMART原則に基づいて設定する。</p>
+      <div class="smart-grid">
+        <div class="smart-card"><div class="smart-letter">S</div><div class="smart-word">Specific</div><div class="smart-desc">具体的で明確な目標</div></div>
+        <div class="smart-card"><div class="smart-letter">M</div><div class="smart-word">Measurable</div><div class="smart-desc">測定可能な指標</div></div>
+        <div class="smart-card"><div class="smart-letter">A</div><div class="smart-word">Achievable</div><div class="smart-desc">達成可能な水準</div></div>
+        <div class="smart-card"><div class="smart-letter">R</div><div class="smart-word">Relevant</div><div class="smart-desc">品質方針と整合</div></div>
+        <div class="smart-card"><div class="smart-letter">T</div><div class="smart-word">Time-bound</div><div class="smart-desc">期限が明確</div></div>
+      </div>
+    </div>
+
+    <div class="doc-section" id="sec5">
+      <div class="section-num">SECTION 05</div>
+      <div class="section-title">手順</div>
+
+      <div id="sec5-1">
+        <div class="section-title-sm">5.1 品質目標の設定（毎年4月）</div>
+        <p>品質部長は各部門長と協議のうえ、当年度の品質目標を策定し、社長の承認を得る。目標設定時には以下を明確にする。</p>
+        <ul class="doc-list">
+          <li>目標の内容（何を・どの水準まで）</li>
+          <li>測定指標（KPI）と測定方法</li>
+          <li>目標値と基準値（前年実績）</li>
+          <li>達成期限</li>
+          <li>担当部門・担当者</li>
+          <li>必要な資源</li>
+        </ul>
+      </div>
+
+      <div id="sec5-2" style="margin-top:24px">
+        <div class="section-title-sm">5.2 達成計画の策定</div>
+        <p>各部門長は品質目標ごとに達成計画を策定し、品質目標管理表に記録する。計画には月次のマイルストーンを含める。</p>
+        <div class="note-box"><strong>注記：</strong>資源（予算・人員・設備）が不足する場合は、品質部長を通じて社長に申請する</div>
+      </div>
+
+      <div id="sec5-3" style="margin-top:24px">
+        <div class="section-title-sm">5.3 進捗の監視（四半期ごと）</div>
+        <p>品質部長は四半期ごとに全部門の進捗状況を収集・集計し、品質目標管理表を更新する。目標達成が困難と判断した場合は、担当部門長と対策を協議する。</p>
+        <ul class="doc-list">
+          <li>第1四半期（7月）：上半期進捗確認</li>
+          <li>第2四半期（10月）：中間評価・必要に応じて目標修正</li>
+          <li>第3四半期（1月）：年度末に向けた最終確認</li>
+          <li>第4四半期（3月）：年次評価・次年度目標策定への反映</li>
+        </ul>
+      </div>
+
+      <div id="sec5-4" style="margin-top:24px">
+        <div class="section-title-sm">5.4 年次レビュー</div>
+        <p>品質部長は年度末にすべての品質目標の達成状況を評価し、マネジメントレビュー（QMS-P-011）にインプットとして報告する。未達成目標については、原因分析と次年度の改善策を含めて報告する。</p>
+      </div>
+    </div>
+
+    <div class="doc-section" id="sec6">
+      <div class="section-num">SECTION 06</div>
+      <div class="section-title">品質目標の例示（参考）</div>
+      <table class="obj-table">
+        <thead>
+          <tr><th>目標区分</th><th>目標内容</th><th>KPI</th><th>目標値</th><th>担当</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>顧客満足</td><td>顧客クレーム件数の削減</td><td>クレーム件数/年</td><td>前年比20%減</td><td>販売部長</td></tr>
+          <tr><td>製品品質</td><td>不良品率の低減</td><td>不良品率（%）</td><td>0.5%以下</td><td>製造部長</td></tr>
+          <tr><td>納期遵守</td><td>納期遵守率の向上</td><td>納期遵守率（%）</td><td>98%以上</td><td>製造部長</td></tr>
+          <tr><td>内部監査</td><td>指摘不適合の是正完了</td><td>是正完了率（%）</td><td>100%</td><td>品質部長</td></tr>
+          <tr><td>人材育成</td><td>教育訓練計画の実施</td><td>計画実施率（%）</td><td>90%以上</td><td>人事部長</td></tr>
+        </tbody>
+      </table>
+      <div class="note-box"><strong>注記：</strong>上記は例示であり、毎年度の品質目標管理表にて実際の目標値を設定すること</div>
+    </div>
+
+    <div class="doc-section" id="sec7">
+      <div class="section-num">SECTION 07</div>
+      <div class="section-title">関連文書・記録</div>
+      <ul class="doc-list">
+        <li><strong>品質マニュアル QMS-M-001：</strong>箇条6.2</li>
+        <li><strong>品質目標管理表：</strong>目標・KPI・達成計画・進捗状況の記録</li>
+        <li><strong>マネジメントレビュー手順 QMS-P-011：</strong>年次評価結果の報告</li>
+        <li><strong>是正処置手順 QMS-P-008：</strong>未達成目標への対応</li>
+      </ul>
+    </div>
+
+    <div class="doc-section" id="sec-rev">
+      <div class="section-num">REVISION HISTORY</div>
+      <div class="section-title">改訂履歴</div>
+      <table class="rev-table">
+        <thead><tr><th>版数</th><th>改訂日</th><th>改訂内容</th><th>承認者</th></tr></thead>
+        <tbody><tr><td>第1版</td><td>2025.06.10</td><td>ISO 9001:2026対応にて新規制定</td><td>社長</td></tr></tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <span>神戸電気株式会社 — QMS-P-002 品質目標管理手順 第1版</span>
+  <span>2025.06.10 制定 — 社外秘</span>
+</footer>
+<script>
+const tocItems=document.querySelectorAll('.toc-item');
+const sections=document.querySelectorAll('[id^="sec"]');
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){tocItems.forEach(i=>i.classList.remove('active'));const a=document.querySelector(`.toc-item[href="#${entry.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>
