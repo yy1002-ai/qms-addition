@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品質マニュアル QMS-M-001 — 神戸電気株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:         #0d1b2a;
+    --navy-mid:     #132338;
+    --navy-light:   #1a3050;
+    --accent:       #1e6fc4;
+    --accent-bright:#2d8de0;
+    --gold:         #c9a84c;
+    --gold-light:   #e0c06e;
+    --green:        #3aaa6e;
+    --text:         #e8edf3;
+    --text-muted:   #8ca0b8;
+    --text-dim:     #5a7090;
+    --border:       rgba(30,111,196,0.25);
+    --border-light: rgba(30,111,196,0.12);
+    --card-bg:      rgba(19,35,56,0.85);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family:'Noto Sans JP', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.8;
+  }
+
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(30,111,196,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,111,196,0.04) 1px, transparent 1px);
+    background-size:40px 40px;
+    pointer-events:none; z-index:0;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    position:sticky; top:0; z-index:100;
+    background:rgba(13,27,42,0.97);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    padding:0 32px; height:64px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+
+  .header-left { display:flex; align-items:center; gap:16px; }
+
+  .logo-mark {
+    width:38px; height:38px; background:var(--accent);
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-family:'DM Mono',monospace; font-size:14px; font-weight:500; color:#fff;
+  }
+
+  .company-name { font-family:'Noto Serif JP',serif; font-size:17px; font-weight:700; }
+  .system-label { font-size:11px; color:var(--text-muted); letter-spacing:0.08em; margin-top:2px; }
+
+  .header-right { display:flex; align-items:center; gap:12px; }
+
+  .back-btn {
+    display:flex; align-items:center; gap:6px;
+    padding:6px 14px; border-radius:6px;
+    background:rgba(30,111,196,0.1);
+    border:1px solid var(--border);
+    color:var(--text-muted); font-size:12px;
+    text-decoration:none; transition:all 0.15s;
+    font-family:'Noto Sans JP',sans-serif;
+  }
+  .back-btn:hover { color:var(--text); background:rgba(30,111,196,0.2); }
+
+  .doc-badge {
+    background:rgba(30,111,196,0.15);
+    border:1px solid var(--border);
+    border-radius:4px; padding:4px 10px;
+    font-size:11px; font-family:'DM Mono',monospace; color:var(--accent-bright);
+  }
+
+  /* ===== LAYOUT ===== */
+  .page-wrap {
+    position:relative; z-index:1;
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    max-width:1300px; margin:0 auto;
+    padding:40px 32px 80px; gap:32px;
+    align-items:start;
+  }
+
+  /* ===== TOC（目次サイドバー） ===== */
+  .toc {
+    position:sticky; top:88px;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:12px; overflow:hidden;
+  }
+
+  .toc-header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--border-light);
+    font-size:11px; font-weight:700;
+    letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase;
+  }
+
+  .toc-body { padding:12px 0; }
+
+  .toc-item {
+    display:block; padding:7px 20px;
+    font-size:12px; color:var(--text-muted);
+    text-decoration:none; transition:all 0.15s;
+    border-left:2px solid transparent;
+  }
+  .toc-item:hover { color:var(--text); background:rgba(30,111,196,0.06); }
+  .toc-item.active { color:var(--accent-bright); border-left-color:var(--accent); background:rgba(30,111,196,0.08); }
+
+  .toc-item-sub {
+    display:block; padding:5px 20px 5px 32px;
+    font-size:11px; color:var(--text-dim);
+    text-decoration:none; transition:all 0.15s;
+  }
+  .toc-item-sub:hover { color:var(--text-muted); }
+
+  /* ===== MAIN CONTENT ===== */
+  .doc-content { min-width:0; }
+
+  /* 文書ヘッダー */
+  .doc-header {
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:12px; padding:32px 36px;
+    margin-bottom:28px;
+  }
+
+  .doc-id {
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--accent-bright); letter-spacing:0.1em; margin-bottom:10px;
+  }
+
+  .doc-title {
+    font-family:'Noto Serif JP',serif;
+    font-size:28px; font-weight:700; line-height:1.3;
+    margin-bottom:20px;
+  }
+
+  .doc-meta-grid {
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:2px; border-radius:8px; overflow:hidden;
+    border:1px solid var(--border-light);
+    margin-top:20px;
+  }
+
+  .doc-meta-item { background:rgba(13,27,42,0.6); padding:12px 16px; }
+  .doc-meta-label { font-size:10px; color:var(--text-dim); letter-spacing:0.08em; margin-bottom:4px; text-transform:uppercase; }
+  .doc-meta-value { font-size:13px; font-weight:500; color:var(--text); }
+
+  /* セクション */
+  .doc-section {
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:12px; padding:32px 36px;
+    margin-bottom:20px;
+  }
+
+  .section-num {
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--accent-bright); letter-spacing:0.1em; margin-bottom:8px;
+  }
+
+  .section-title {
+    font-family:'Noto Serif JP',serif;
+    font-size:20px; font-weight:700;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--border-light);
+    margin-bottom:20px;
+  }
+
+  .section-title-sm {
+    font-size:14px; font-weight:700;
+    color:var(--accent-bright);
+    margin:20px 0 8px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .section-title-sm::before {
+    content:''; display:block;
+    width:3px; height:14px;
+    background:var(--accent); border-radius:2px;
+  }
+
+  p { font-size:14px; color:var(--text); line-height:1.9; margin-bottom:14px; }
+  p:last-child { margin-bottom:0; }
+
+  /* リスト */
+  .doc-list { padding-left:0; list-style:none; margin-bottom:14px; }
+  .doc-list li {
+    font-size:14px; color:var(--text); line-height:1.8;
+    padding:6px 0 6px 20px; position:relative;
+    border-bottom:1px solid var(--border-light);
+  }
+  .doc-list li:last-child { border-bottom:none; }
+  .doc-list li::before {
+    content:'–'; position:absolute; left:0;
+    color:var(--accent-bright); font-family:'DM Mono',monospace;
+  }
+
+  /* 要求事項対応表 */
+  .req-table {
+    width:100%; border-collapse:collapse;
+    font-size:13px; margin-top:8px;
+  }
+  .req-table th {
+    background:rgba(30,111,196,0.12);
+    padding:10px 14px; text-align:left;
+    font-size:11px; font-weight:700;
+    letter-spacing:0.08em; color:var(--accent-bright);
+    border-bottom:1px solid var(--border);
+    text-transform:uppercase;
+  }
+  .req-table td {
+    padding:11px 14px; color:var(--text);
+    border-bottom:1px solid var(--border-light);
+    vertical-align:top; line-height:1.6;
+  }
+  .req-table tr:last-child td { border-bottom:none; }
+  .req-table tr:hover td { background:rgba(30,111,196,0.04); }
+
+  .req-num {
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--accent-bright); white-space:nowrap;
+  }
+
+  .status-badge {
+    font-size:10px; font-weight:700; padding:2px 8px;
+    border-radius:3px; white-space:nowrap;
+  }
+  .status-applied { background:rgba(58,170,110,0.15); color:#5cc98a; border:1px solid rgba(58,170,110,0.25); }
+  .status-ref     { background:rgba(201,168,76,0.12);  color:var(--gold-light); border:1px solid rgba(201,168,76,0.2); }
+  .status-excluded{ background:rgba(90,112,144,0.15);  color:var(--text-muted); border:1px solid rgba(90,112,144,0.2); }
+
+  /* 注記ボックス */
+  .note-box {
+    background:rgba(30,111,196,0.06);
+    border:1px solid var(--border-light);
+    border-left:3px solid var(--accent);
+    border-radius:0 8px 8px 0;
+    padding:14px 18px; font-size:13px;
+    color:var(--text-muted); line-height:1.7;
+    margin-top:16px;
+  }
+  .note-box strong { color:var(--accent-bright); }
+
+  /* 改訂履歴 */
+  .rev-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .rev-table th {
+    background:rgba(30,111,196,0.12);
+    padding:10px 14px; text-align:left;
+    font-size:11px; font-weight:700;
+    letter-spacing:0.08em; color:var(--accent-bright);
+    border-bottom:1px solid var(--border);
+  }
+  .rev-table td {
+    padding:10px 14px; color:var(--text);
+    border-bottom:1px solid var(--border-light);
+    line-height:1.6;
+  }
+  .rev-table tr:last-child td { border-bottom:none; }
+
+  /* フッター */
+  footer {
+    position:relative; z-index:1;
+    border-top:1px solid var(--border-light);
+    padding:20px 32px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; color:var(--text-dim);
+    font-family:'DM Mono',monospace;
+    max-width:1300px; margin:0 auto;
+  }
+
+  @media (max-width:900px) {
+    .page-wrap { grid-template-columns:1fr; }
+    .toc { position:static; }
+    .doc-meta-grid { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-mark">KE</div>
+    <div>
+      <div class="company-name">神戸電気株式会社</div>
+      <div class="system-label">品質マネジメントシステム</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="back-btn" href="../index.html">← ダッシュボードへ戻る</a>
+    <div class="doc-badge">QMS-M-001</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-header">目次</div>
+    <div class="toc-body">
+      <a class="toc-item" href="#sec0">文書情報</a>
+      <a class="toc-item" href="#sec1">1. 適用範囲</a>
+      <a class="toc-item" href="#sec2">2. 引用規格</a>
+      <a class="toc-item" href="#sec3">3. 用語と定義</a>
+      <a class="toc-item" href="#sec4">4. 組織の状況</a>
+        <a class="toc-item-sub" href="#sec4-1">4.1 外部・内部の課題</a>
+        <a class="toc-item-sub" href="#sec4-2">4.2 利害関係者のニーズ</a>
+        <a class="toc-item-sub" href="#sec4-3">4.3 QMSの適用範囲</a>
+        <a class="toc-item-sub" href="#sec4-4">4.4 QMS及びプロセス</a>
+      <a class="toc-item" href="#sec5">5. リーダーシップ</a>
+        <a class="toc-item-sub" href="#sec5-1">5.1 トップマネジメントの責務</a>
+        <a class="toc-item-sub" href="#sec5-2">5.2 品質方針</a>
+        <a class="toc-item-sub" href="#sec5-3">5.3 役割・責任・権限</a>
+      <a class="toc-item" href="#sec6">6. 計画</a>
+      <a class="toc-item" href="#sec7">7. 支援</a>
+      <a class="toc-item" href="#sec8">8. 運用</a>
+      <a class="toc-item" href="#sec9">9. パフォーマンス評価</a>
+      <a class="toc-item" href="#sec10">10. 改善</a>
+      <a class="toc-item" href="#sec11">11. ISO要求対応表</a>
+      <a class="toc-item" href="#sec-rev">改訂履歴</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="doc-content">
+
+    <!-- 文書ヘッダー -->
+    <div class="doc-header" id="sec0">
+      <div class="doc-id">LAYER 01 — 品質マニュアル</div>
+      <div class="doc-title">品質マニュアル</div>
+      <p style="color:var(--text-muted);font-size:13px;">
+        本マニュアルは、神戸電気株式会社の品質マネジメントシステム（QMS）の
+        方針・目的・体制を定めた最上位文書です。ISO 9001:2026の全要求事項との対応を示します。
+      </p>
+      <div class="doc-meta-grid">
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">文書番号</div>
+          <div class="doc-meta-value">QMS-M-001</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">版数</div>
+          <div class="doc-meta-value">第1版</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">制定日</div>
+          <div class="doc-meta-value">2025.06.10</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">承認者</div>
+          <div class="doc-meta-value">社長</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">作成者</div>
+          <div class="doc-meta-value">品質部長</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">適用規格</div>
+          <div class="doc-meta-value">ISO 9001:2026</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">次回見直し</div>
+          <div class="doc-meta-value">2026.06.10</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">機密区分</div>
+          <div class="doc-meta-value">社外秘</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. 適用範囲 -->
+    <div class="doc-section" id="sec1">
+      <div class="section-num">SECTION 01</div>
+      <div class="section-title">適用範囲</div>
+      <p>
+        本品質マニュアルは、神戸電気株式会社の全事業活動に適用する。
+        具体的には、電気製品の設計・開発、製造、検査、出荷および附帯サービスに関わる
+        すべてのプロセスを対象とする。
+      </p>
+      <div class="section-title-sm">適用除外</div>
+      <p>
+        ISO 9001:2026の要求事項のうち、本社における設計・開発の一部工程については、
+        顧客提供仕様に基づく受託製造のみを行うため、適用除外とする（箇条8.3の一部）。
+      </p>
+      <div class="note-box">
+        <strong>注記：</strong>適用除外の判断根拠は、品質部長が文書化し、
+        年1回のマネジメントレビューで妥当性を確認する。
+      </div>
+    </div>
+
+    <!-- 2. 引用規格 -->
+    <div class="doc-section" id="sec2">
+      <div class="section-num">SECTION 02</div>
+      <div class="section-title">引用規格</div>
+      <ul class="doc-list">
+        <li>ISO 9001:2026　品質マネジメントシステム — 要求事項</li>
+        <li>ISO 9000:2015　品質マネジメントシステム — 基本及び用語</li>
+        <li>ISO 9004:2018　組織の持続的成功のための運営管理</li>
+        <li>ISO 31000:2018　リスクマネジメント — 指針</li>
+        <li>ISO 42001:2023　人工知能マネジメントシステム</li>
+      </ul>
+    </div>
+
+    <!-- 3. 用語と定義 -->
+    <div class="doc-section" id="sec3">
+      <div class="section-num">SECTION 03</div>
+      <div class="section-title">用語と定義</div>
+      <p>本マニュアルで使用する用語は、ISO 9000:2015および ISO 9001:2026に規定する定義による。</p>
+      <div class="section-title-sm">主要用語</div>
+      <ul class="doc-list">
+        <li><strong>QMS：</strong>品質マネジメントシステム（Quality Management System）</li>
+        <li><strong>トップマネジメント：</strong>当社においては社長を指す</li>
+        <li><strong>利害関係者：</strong>顧客、従業員、株主、仕入先、地域社会等</li>
+        <li><strong>リスク：</strong>不確かさの影響（ネガティブ・ポジティブ両方を含む）</li>
+        <li><strong>プロセス：</strong>インプットをアウトプットに変換する相互に関連する活動の集まり</li>
+      </ul>
+    </div>
+
+    <!-- 4. 組織の状況 -->
+    <div class="doc-section" id="sec4">
+      <div class="section-num">SECTION 04</div>
+      <div class="section-title">組織の状況</div>
+
+      <div id="sec4-1">
+        <div class="section-title-sm">4.1 外部・内部の課題の理解</div>
+        <p>
+          当社は、事業目的に関連し、QMSの意図した結果に影響する外部・内部の課題を
+          定期的に特定・監視する。外部課題としては市場動向・技術革新・規制変化・
+          サプライチェーンリスク等を、内部課題としては組織能力・人材・プロセス成熟度等を対象とする。
+        </p>
+        <div class="note-box">
+          <strong>参照手順：</strong>リスク及び機会の管理手順 QMS-P-001
+        </div>
+      </div>
+
+      <div id="sec4-2" style="margin-top:24px">
+        <div class="section-title-sm">4.2 利害関係者のニーズと期待</div>
+        <p>
+          当社のQMSに関連する利害関係者とその要求事項を以下のとおり特定し、定期的にレビューする。
+        </p>
+        <ul class="doc-list">
+          <li><strong>顧客：</strong>製品品質・納期・アフターサービスへの期待</li>
+          <li><strong>従業員：</strong>安全な作業環境・能力開発・公正な評価</li>
+          <li><strong>株主・経営陣：</strong>持続的な事業成長・コンプライアンス</li>
+          <li><strong>仕入先・協力会社：</strong>公正な取引・安定した発注</li>
+          <li><strong>規制当局：</strong>関連法令・規制への適合</li>
+          <li><strong>地域社会：</strong>環境負荷の低減・地域貢献</li>
+        </ul>
+      </div>
+
+      <div id="sec4-3" style="margin-top:24px">
+        <div class="section-title-sm">4.3 QMSの適用範囲の決定</div>
+        <p>
+          本QMSの適用範囲は「電気製品の設計・製造・検査・出荷」とし、
+          神戸本社工場および関連製造拠点の全活動を含む。
+        </p>
+      </div>
+
+      <div id="sec4-4" style="margin-top:24px">
+        <div class="section-title-sm">4.4 QMSとそのプロセス</div>
+        <p>
+          当社のQMSは以下の3プロセスで構成される。各プロセスのインプット・アウトプット・
+          責任者・評価指標は、ビジネスプロセス管理要領に定める。
+        </p>
+        <ul class="doc-list">
+          <li><strong>プロセス5：</strong>マネジメントプロセス（計画・管理・改善）</li>
+          <li><strong>プロセス10：</strong>製造プロセス（設計・製造・出荷）</li>
+          <li><strong>プロセス15：</strong>品質評価プロセス（監査・レビュー・是正）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5. リーダーシップ -->
+    <div class="doc-section" id="sec5">
+      <div class="section-num">SECTION 05</div>
+      <div class="section-title">リーダーシップ</div>
+
+      <div id="sec5-1">
+        <div class="section-title-sm">5.1 トップマネジメントのリーダーシップ及びコミットメント</div>
+        <p>
+          社長は、QMSの有効性に関して説明責任を持ち、以下の事項にコミットする。
+        </p>
+        <ul class="doc-list">
+          <li>品質方針及び品質目標を確立し、組織の戦略的方向性と整合させる</li>
+          <li>QMSの要求事項を組織の業務プロセスに統合することを確実にする</li>
+          <li>プロセスアプローチ及びリスクに基づく考え方の促進</li>
+          <li>QMSに必要な資源が利用可能であることを確実にする</li>
+          <li>有効なQMSの重要性を伝達し、従業員の積極的参加を促す</li>
+          <li>QMSが意図した結果を達成することを支援する</li>
+          <li>継続的改善を促進する</li>
+        </ul>
+      </div>
+
+      <div id="sec5-2" style="margin-top:24px">
+        <div class="section-title-sm">5.2 品質方針</div>
+        <p>
+          当社の品質方針は、持続可能な成長と企業価値の向上を実現するため、以下を基本方針とする。
+        </p>
+        <ul class="doc-list">
+          <li>顧客満足を最優先とし、高品質な製品を安定的に供給する</li>
+          <li>ISO 9001:2026に準拠したQMSを維持・継続的に改善する</li>
+          <li>全従業員がQMSへの理解と参加意識を持ち、品質文化を醸成する</li>
+          <li>ESG（環境・社会・ガバナンス）の視点から企業価値を高める</li>
+          <li>リスク管理を強化し、持続可能な経営を実現する</li>
+        </ul>
+        <div class="note-box">
+          <strong>注記：</strong>品質方針は社内掲示および社内イントラネットで全従業員に周知する。
+          年1回のマネジメントレビューにて適切性をレビューする。
+        </div>
+      </div>
+
+      <div id="sec5-3" style="margin-top:24px">
+        <div class="section-title-sm">5.3 組織の役割・責任及び権限</div>
+        <p>トップマネジメント（社長）は、以下の役割・責任・権限を各部門長に付与する。</p>
+        <ul class="doc-list">
+          <li><strong>品質部長：</strong>QMSの維持・改善・内部監査の統括責任</li>
+          <li><strong>製造部長：</strong>製造プロセスの品質確保・工程管理の責任</li>
+          <li><strong>設計開発部長：</strong>製品設計・開発品質の確保責任</li>
+          <li><strong>販売部長：</strong>顧客要求事項の明確化・顧客満足の把握責任</li>
+          <li><strong>購買部長：</strong>外部提供者の評価・選定・購買品質の管理責任</li>
+          <li><strong>人事部長：</strong>人材育成・コンピテンス管理・教育訓練の責任</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. 計画 -->
+    <div class="doc-section" id="sec6">
+      <div class="section-num">SECTION 06</div>
+      <div class="section-title">計画</div>
+      <div class="section-title-sm">6.1 リスク及び機会への取り組み</div>
+      <p>
+        当社は、QMSの計画時に、4.1で決定した課題及び4.2で決定した要求事項を考慮し、
+        取り組む必要があるリスク及び機会を決定する。
+        具体的な手順はリスク及び機会の管理手順（QMS-P-001）に定める。
+      </p>
+      <div class="section-title-sm">6.2 品質目標及びその達成の計画</div>
+      <p>
+        品質目標は、品質方針と整合し、測定可能な形で設定する。
+        目標・達成計画・責任者・期限は品質目標管理手順（QMS-P-002）に定め、
+        年1回のマネジメントレビューで進捗を確認する。
+      </p>
+      <div class="section-title-sm">6.3 変更の計画</div>
+      <p>
+        QMSに対する変更が必要と判断した場合は、変更管理手順（QMS-P-006）に従い、
+        計画的かつ体系的に実施する。
+      </p>
+    </div>
+
+    <!-- 7. 支援 -->
+    <div class="doc-section" id="sec7">
+      <div class="section-num">SECTION 07</div>
+      <div class="section-title">支援</div>
+      <div class="section-title-sm">7.1 資源</div>
+      <p>
+        当社は、QMSの確立・実施・維持及び継続的改善に必要な資源（人員・インフラストラクチャ・
+        作業環境・監視・測定機器・組織の知識）を決定し、提供する。
+      </p>
+      <div class="section-title-sm">7.2 力量</div>
+      <p>
+        品質に影響する業務を行う要員に必要な力量を決定し、教育訓練等の手段によって
+        確保する。具体的な管理は人事部長が所管する。
+      </p>
+      <div class="section-title-sm">7.3 認識</div>
+      <p>
+        当社の全従業員が品質方針・品質目標・QMSへの自らの貢献を認識できるよう、
+        定期的な教育・周知活動を実施する。
+      </p>
+      <div class="section-title-sm">7.4 コミュニケーション</div>
+      <p>
+        QMSに関する内部・外部コミュニケーションの内容・時期・対象・手段・責任者を
+        明確にして実施する。
+      </p>
+      <div class="section-title-sm">7.5 文書化した情報</div>
+      <p>
+        QMSに必要な文書化した情報の作成・更新・管理は、文書管理手順に従って実施する。
+        三層の文書体系（品質マニュアル・手順書・記録）を維持する。
+      </p>
+    </div>
+
+    <!-- 8. 運用 -->
+    <div class="doc-section" id="sec8">
+      <div class="section-num">SECTION 08</div>
+      <div class="section-title">運用</div>
+      <p>
+        製品・サービスの提供に関わる運用プロセスの計画・実施・管理は、
+        各プロセスの手順書（QMS-P系文書）に詳細を定める。主なプロセスは以下のとおり。
+      </p>
+      <ul class="doc-list">
+        <li>製品要求事項の明確化と顧客とのコミュニケーション</li>
+        <li>設計・開発のプランニング、インプット、管理、アウトプット、レビュー、検証、妥当性確認</li>
+        <li>外部提供者（仕入先）の管理・評価</li>
+        <li>製造及びサービス提供の管理（識別・トレーサビリティ含む）</li>
+        <li>顧客又は外部提供者の所有物の管理</li>
+        <li>不適合なアウトプットの管理</li>
+      </ul>
+    </div>
+
+    <!-- 9. パフォーマンス評価 -->
+    <div class="doc-section" id="sec9">
+      <div class="section-num">SECTION 09</div>
+      <div class="section-title">パフォーマンス評価</div>
+      <div class="section-title-sm">9.1 監視・測定・分析及び評価</div>
+      <p>
+        QMSのパフォーマンス及び有効性を評価するため、顧客満足・プロセス指標・製品品質等を
+        定期的に監視・測定・分析する。
+      </p>
+      <div class="section-title-sm">9.2 内部監査</div>
+      <p>
+        QMSがISO 9001:2026の要求事項及び自社の要求事項に適合し、
+        有効に実施・維持されているかを確認するため、計画的な内部監査を実施する。
+        詳細は内部監査手順（QMS-P-010）による。
+      </p>
+      <div class="section-title-sm">9.3 マネジメントレビュー</div>
+      <p>
+        社長は、QMSが引き続き適切・妥当・有効であることを確実にするため、
+        年1回以上マネジメントレビューを実施する。
+        詳細はマネジメントレビュー手順（QMS-P-011）による。
+      </p>
+    </div>
+
+    <!-- 10. 改善 -->
+    <div class="doc-section" id="sec10">
+      <div class="section-num">SECTION 10</div>
+      <div class="section-title">改善</div>
+      <div class="section-title-sm">10.1 一般</div>
+      <p>
+        当社は、顧客要求事項を満たし、顧客満足を向上させるための機会を決定し、
+        選択して改善を実施する。
+      </p>
+      <div class="section-title-sm">10.2 不適合及び是正処置</div>
+      <p>
+        不適合（クレーム・内部不適合等）が発生した場合は、是正処置手順（QMS-P-008）に従い、
+        原因分析・是正処置・有効性確認を実施する。
+      </p>
+      <div class="section-title-sm">10.3 継続的改善</div>
+      <p>
+        QMSの適切性・妥当性・有効性を継続的に改善するため、
+        分析結果・マネジメントレビューのアウトプット等を活用する。
+      </p>
+    </div>
+
+    <!-- 11. ISO要求事項対応表 -->
+    <div class="doc-section" id="sec11">
+      <div class="section-num">SECTION 11</div>
+      <div class="section-title">ISO 9001:2026 要求事項対応表</div>
+      <table class="req-table">
+        <thead>
+          <tr>
+            <th>箇条</th>
+            <th>要求事項</th>
+            <th>対応文書</th>
+            <th>状態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="req-num">4.1</td>
+            <td>外部・内部の課題の理解</td>
+            <td>QMS-M-001（本書）、QMS-P-001</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">4.2</td>
+            <td>利害関係者のニーズと期待</td>
+            <td>QMS-M-001（本書）</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">4.3</td>
+            <td>QMSの適用範囲の決定</td>
+            <td>QMS-M-001（本書）</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">4.4</td>
+            <td>QMS及びそのプロセス</td>
+            <td>QMS-M-001（本書）、各手順書</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">5.1</td>
+            <td>リーダーシップ及びコミットメント</td>
+            <td>QMS-M-001（本書）</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">5.2</td>
+            <td>品質方針</td>
+            <td>QMS-M-001（本書）</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">5.3</td>
+            <td>組織の役割・責任及び権限</td>
+            <td>QMS-M-001（本書）</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">6.1</td>
+            <td>リスク及び機会への取り組み</td>
+            <td>QMS-P-001</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">6.2</td>
+            <td>品質目標及びその達成の計画</td>
+            <td>QMS-P-002</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">6.3</td>
+            <td>変更の計画</td>
+            <td>QMS-P-006</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">7.1〜7.5</td>
+            <td>支援（資源・力量・認識・文書化）</td>
+            <td>各関連手順書</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">8.1〜8.7</td>
+            <td>運用（製造・設計・購買・不適合管理）</td>
+            <td>各関連手順書</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">8.3</td>
+            <td>製品及びサービスの設計・開発（一部）</td>
+            <td>—</td>
+            <td><span class="status-badge status-excluded">一部除外</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">9.1</td>
+            <td>監視・測定・分析及び評価</td>
+            <td>QMS-P-010、QMS-P-011</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">9.2</td>
+            <td>内部監査</td>
+            <td>QMS-P-010</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">9.3</td>
+            <td>マネジメントレビュー</td>
+            <td>QMS-P-011</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+          <tr>
+            <td class="req-num">10.1〜10.3</td>
+            <td>改善（是正処置・継続的改善）</td>
+            <td>QMS-P-008</td>
+            <td><span class="status-badge status-applied">適用</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 改訂履歴 -->
+    <div class="doc-section" id="sec-rev">
+      <div class="section-num">REVISION HISTORY</div>
+      <div class="section-title">改訂履歴</div>
+      <table class="rev-table">
+        <thead>
+          <tr>
+            <th>版数</th>
+            <th>改訂日</th>
+            <th>改訂内容</th>
+            <th>承認者</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第1版</td>
+            <td>2025.06.10</td>
+            <td>ISO 9001:2026対応にて新規制定</td>
+            <td>社長</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <span>神戸電気株式会社 — QMS-M-001 品質マニュアル 第1版</span>
+  <span>2025.06.10 制定 — 社外秘</span>
+</footer>
+
+<script>
+// アクティブTOCのハイライト
+const tocItems = document.querySelectorAll('.toc-item');
+const sections = document.querySelectorAll('[id^="sec"]');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocItems.forEach(item => item.classList.remove('active'));
+      const id = entry.target.id;
+      const active = document.querySelector(`.toc-item[href="#${id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
