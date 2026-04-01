@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>是正処置記録票 QMS-R-005 — 神戸電気株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1b2a;--accent:#1e6fc4;--accent-bright:#2d8de0;--gold-light:#e0c06e;--text:#e8edf3;--text-muted:#8ca0b8;--text-dim:#5a7090;--border:rgba(30,111,196,0.25);--border-light:rgba(30,111,196,0.12);--card-bg:rgba(19,35,56,0.85);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(30,111,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,196,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+header{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo-mark{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:#fff;}
+.company-name{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;}
+.system-label{font-size:11px;color:var(--text-muted);letter-spacing:0.08em;margin-top:2px;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:rgba(30,111,196,0.1);border:1px solid var(--border);color:var(--text-muted);font-size:12px;text-decoration:none;transition:all 0.15s;}
+.back-btn:hover{color:var(--text);background:rgba(30,111,196,0.2);}
+.doc-badge{background:rgba(30,111,196,0.15);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:11px;font-family:'DM Mono',monospace;color:var(--accent-bright);}
+.btn{padding:8px 16px;border-radius:6px;font-size:12px;font-weight:500;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border:none;transition:all 0.15s;display:flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-bright);}
+.btn-success{background:rgba(58,170,110,0.15);border:1px solid rgba(58,170,110,0.3);color:#5cc98a;}
+.btn-success:hover{background:rgba(58,170,110,0.25);}
+
+.page-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 32px 80px;}
+.toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.save-notice{background:rgba(58,170,110,0.12);border:1px solid rgba(58,170,110,0.3);border-radius:8px;padding:10px 16px;font-size:12px;color:#5cc98a;display:none;margin-bottom:16px;}
+
+/* ステータスバー */
+.status-bar{display:flex;gap:2px;margin-bottom:24px;border-radius:10px;overflow:hidden;}
+.status-step{flex:1;padding:10px 12px;text-align:center;font-size:11px;font-weight:700;background:rgba(13,27,42,0.6);border:1px solid var(--border-light);color:var(--text-dim);cursor:pointer;transition:all 0.15s;}
+.status-step.active{background:rgba(30,111,196,0.2);border-color:rgba(30,111,196,0.4);color:var(--accent-bright);}
+.status-step.done{background:rgba(58,170,110,0.15);border-color:rgba(58,170,110,0.3);color:#5cc98a;}
+
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-bottom:20px;}
+.section-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent-bright);letter-spacing:0.1em;margin-bottom:6px;}
+.section-title{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border-light);margin-bottom:20px;}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:11px;font-weight:700;color:var(--accent-bright);letter-spacing:0.08em;text-transform:uppercase;}
+input[type=text],input[type=date],select,textarea{background:rgba(13,27,42,0.8);border:1px solid var(--border-light);border-radius:6px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;padding:8px 12px;width:100%;transition:border-color 0.15s;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-bright);background:rgba(13,27,42,1);}
+select option{background:#132338;}
+textarea{resize:vertical;min-height:80px;line-height:1.7;}
+
+/* 深刻度 */
+.severity-group{display:flex;gap:8px;}
+.severity-btn{flex:1;padding:8px;border-radius:6px;border:1px solid var(--border-light);background:rgba(13,27,42,0.5);color:var(--text-muted);font-size:12px;font-weight:700;cursor:pointer;text-align:center;transition:all 0.15s;}
+.severity-btn:hover{border-color:var(--border);}
+.severity-btn.active-high{background:rgba(220,60,60,0.2);border-color:rgba(220,60,60,0.4);color:#f08080;}
+.severity-btn.active-mid{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.4);color:var(--gold-light);}
+.severity-btn.active-low{background:rgba(58,170,110,0.2);border-color:rgba(58,170,110,0.4);color:#5cc98a;}
+
+/* なぜなぜ分析 */
+.why-grid{display:flex;flex-direction:column;gap:8px;}
+.why-row{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;}
+.why-label{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent-bright);font-weight:700;text-align:center;background:rgba(30,111,196,0.1);border:1px solid var(--border-light);border-radius:6px;padding:8px;}
+
+/* 署名欄 */
+.sign-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.sign-box{border:1px solid var(--border-light);border-radius:8px;padding:12px 14px;}
+.sign-role{font-size:11px;color:var(--text-muted);margin-bottom:3px;}
+.sign-line-input{margin-top:10px;}
+
+/* 完了バナー */
+.complete-banner{background:rgba(58,170,110,0.12);border:1px solid rgba(58,170,110,0.3);border-radius:10px;padding:16px 24px;display:flex;align-items:center;gap:12px;margin-bottom:20px;display:none;}
+.complete-icon{font-size:24px;}
+.complete-text{font-size:14px;font-weight:700;color:#5cc98a;}
+
+/* カウンター一覧リンク */
+.rec-list-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;}
+.rec-list-header{padding:14px 24px;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;}
+.rec-list-title{font-size:12px;font-weight:700;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;}
+.rec-table{width:100%;border-collapse:collapse;}
+.rec-table th{background:rgba(30,111,196,0.1);padding:8px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--accent-bright);border-bottom:1px solid var(--border);}
+.rec-table td{padding:8px 14px;font-size:12px;border-bottom:1px solid var(--border-light);}
+.rec-table tr:last-child td{border-bottom:none;}
+.rec-table tr:hover td{background:rgba(30,111,196,0.04);cursor:pointer;}
+.status-tag{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;}
+.st-open{background:rgba(220,60,60,0.15);color:#f08080;}
+.st-progress{background:rgba(201,168,76,0.12);color:var(--gold-light);}
+.st-closed{background:rgba(58,170,110,0.15);color:#5cc98a;}
+
+@media print{
+  body{background:#fff;color:#000;}
+  body::before,header,.toolbar,.status-bar,.rec-list-wrap{display:none!important;}
+  .page-wrap{padding:0;}
+  .section{border:1px solid #ccc;background:#fff;}
+  input,select,textarea{border:1px solid #ccc;background:#fff;color:#000;}
+}
+@media(max-width:700px){.form-grid,.sign-grid{grid-template-columns:1fr;}.why-row{grid-template-columns:60px 1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="logo-mark">KE</div>
+    <div>
+      <div class="company-name">神戸電気株式会社</div>
+      <div class="system-label">品質マネジメントシステム</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="back-btn" href="../index.html">← ダッシュボードへ戻る</a>
+    <div class="doc-badge">QMS-R-005</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <div id="saveNotice" class="save-notice">✓ データを保存しました</div>
+  <div id="completeBanner" class="complete-banner">
+    <div class="complete-icon">✅</div>
+    <div class="complete-text">この是正処置はクローズされています</div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn btn-success" onclick="saveData()">💾 保存</button>
+    <button class="btn btn-success" onclick="window.print()">🖨 印刷</button>
+    <button class="btn btn-primary" onclick="newRecord()">📄 新規作成</button>
+  </div>
+
+  <!-- ステータスバー -->
+  <div class="status-bar" id="statusBar">
+    <div class="status-step" onclick="setStatus(0)">① 不適合登録</div>
+    <div class="status-step" onclick="setStatus(1)">② 応急処置</div>
+    <div class="status-step" onclick="setStatus(2)">③ 原因分析</div>
+    <div class="status-step" onclick="setStatus(3)">④ 是正処置実施</div>
+    <div class="status-step" onclick="setStatus(4)">⑤ 有効性確認</div>
+    <div class="status-step" onclick="setStatus(5)">⑥ クローズ</div>
+  </div>
+
+  <!-- 1. 不適合の基本情報 -->
+  <div class="section">
+    <div class="section-num">SECTION 01</div>
+    <div class="section-title">不適合の基本情報</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <div class="form-label">管理番号</div>
+        <input type="text" id="carNo" placeholder="例：CAR-2025-001">
+      </div>
+      <div class="form-group">
+        <div class="form-label">発生日</div>
+        <input type="date" id="occurDate">
+      </div>
+      <div class="form-group">
+        <div class="form-label">発生部門</div>
+        <select id="occurDept">
+          <option value="">— 選択 —</option>
+          <option>品質部</option><option>製造部</option><option>販売部</option>
+          <option>設計開発部</option><option>購買部</option><option>人事部</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">発見者</div>
+        <input type="text" id="finder" placeholder="氏名・部署">
+      </div>
+      <div class="form-group">
+        <div class="form-label">不適合の発生源</div>
+        <select id="source">
+          <option value="">— 選択 —</option>
+          <option>顧客クレーム</option><option>内部監査</option><option>製造検査</option>
+          <option>プロセス指標</option><option>従業員報告</option><option>MRアウトプット</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">深刻度</div>
+        <div class="severity-group">
+          <div class="severity-btn" id="sev-high" onclick="setSeverity('高')">重大</div>
+          <div class="severity-btn" id="sev-mid"  onclick="setSeverity('中')">中程度</div>
+          <div class="severity-btn" id="sev-low"  onclick="setSeverity('低')">軽微</div>
+        </div>
+        <input type="hidden" id="severity">
+      </div>
+      <div class="form-group full">
+        <div class="form-label">不適合の内容（具体的な事実）</div>
+        <textarea id="ncContent" placeholder="いつ・どこで・何が・どのように発生したかを具体的に記入"></textarea>
+      </div>
+      <div class="form-group full">
+        <div class="form-label">影響範囲（製品・プロセス・顧客への影響）</div>
+        <textarea id="impact" placeholder="この不適合が与える影響の範囲を記入"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 応急処置 -->
+  <div class="section">
+    <div class="section-num">SECTION 02</div>
+    <div class="section-title">応急処置（被害拡大防止）</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <div class="form-label">応急処置の内容</div>
+        <textarea id="immediate" placeholder="不適合品の隔離・封じ込め・顧客対応等を記入"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-label">実施者</div>
+        <input type="text" id="immediateOwner" placeholder="氏名">
+      </div>
+      <div class="form-group">
+        <div class="form-label">実施日</div>
+        <input type="date" id="immediateDate">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 根本原因分析（なぜなぜ分析） -->
+  <div class="section">
+    <div class="section-num">SECTION 03</div>
+    <div class="section-title">根本原因分析（なぜなぜ分析）</div>
+    <div class="why-grid">
+      <div class="why-row">
+        <div class="why-label">問題</div>
+        <textarea id="why0" rows="2" placeholder="不適合の事象を簡潔に記入"></textarea>
+      </div>
+      <div class="why-row">
+        <div class="why-label">なぜ①</div>
+        <textarea id="why1" rows="2" placeholder="なぜ発生したか？（第1原因）"></textarea>
+      </div>
+      <div class="why-row">
+        <div class="why-label">なぜ②</div>
+        <textarea id="why2" rows="2" placeholder="なぜそうなったか？（第2原因）"></textarea>
+      </div>
+      <div class="why-row">
+        <div class="why-label">なぜ③</div>
+        <textarea id="why3" rows="2" placeholder="なぜそうなったか？（第3原因）"></textarea>
+      </div>
+      <div class="why-row">
+        <div class="why-label">なぜ④</div>
+        <textarea id="why4" rows="2" placeholder="なぜそうなったか？（第4原因）"></textarea>
+      </div>
+      <div class="why-row">
+        <div class="why-label">根本原因</div>
+        <textarea id="why5" rows="2" placeholder="最終的な根本原因を記入" style="border-color:rgba(201,168,76,0.4);"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 是正処置計画・実施 -->
+  <div class="section">
+    <div class="section-num">SECTION 04</div>
+    <div class="section-title">是正処置計画・実施</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <div class="form-label">是正処置の内容（根本原因への対策）</div>
+        <textarea id="caContent" placeholder="根本原因を除去するための具体的な処置内容を記入"></textarea>
+      </div>
+      <div class="form-group full">
+        <div class="form-label">文書改訂（手順書・作業標準等の変更内容）</div>
+        <textarea id="docRevision" placeholder="手順書等の改訂が必要な場合は改訂内容を記入（不要な場合は「なし」）" style="min-height:60px;"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-label">担当者</div>
+        <input type="text" id="caOwner" placeholder="氏名・部署">
+      </div>
+      <div class="form-group">
+        <div class="form-label">完了期限</div>
+        <input type="date" id="caDeadline">
+      </div>
+      <div class="form-group">
+        <div class="form-label">実施完了日</div>
+        <input type="date" id="caCompleteDate">
+      </div>
+      <div class="form-group">
+        <div class="form-label">実施状況</div>
+        <select id="caStatus">
+          <option>未着手</option><option>対応中</option><option>完了</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 有効性の確認 -->
+  <div class="section">
+    <div class="section-num">SECTION 05</div>
+    <div class="section-title">有効性の確認</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <div class="form-label">有効性確認の方法と結果</div>
+        <textarea id="effectiveness" placeholder="現場確認・記録確認・KPI改善等、確認方法と結果を記入"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-label">確認者</div>
+        <input type="text" id="effChecker" placeholder="品質部長等">
+      </div>
+      <div class="form-group">
+        <div class="form-label">確認日</div>
+        <input type="date" id="effDate">
+      </div>
+      <div class="form-group">
+        <div class="form-label">有効性判定</div>
+        <select id="effResult">
+          <option value="">— 選択 —</option>
+          <option>有効（クローズ可）</option>
+          <option>一部有効（継続監視）</option>
+          <option>無効（処置の見直し要）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">クローズ日</div>
+        <input type="date" id="closeDate">
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 署名欄 -->
+  <div class="section">
+    <div class="section-num">SECTION 06</div>
+    <div class="section-title">確認・承認</div>
+    <div class="sign-grid">
+      <div class="sign-box">
+        <div class="sign-role">作成者</div>
+        <div class="sign-line-input"><input type="text" id="sign1" placeholder="氏名"></div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">署名: ____________</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-role">是正処置担当</div>
+        <div class="sign-line-input"><input type="text" id="sign2" placeholder="氏名"></div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">署名: ____________</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-role">有効性確認者</div>
+        <div class="sign-line-input"><input type="text" id="sign3" placeholder="品質部長等"></div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">署名: ____________</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-role">承認者</div>
+        <div class="sign-line-input"><input type="text" id="sign4" placeholder="部門長等"></div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">署名: ____________</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'qms_r005';
+let currentStatus = 0;
+
+function setStatus(n) {
+  currentStatus = n;
+  document.querySelectorAll('.status-step').forEach((s, i) => {
+    s.className = 'status-step';
+    if (i < n) s.classList.add('done');
+    if (i === n) s.classList.add('active');
+  });
+  if (n === 5) {
+    document.getElementById('completeBanner').style.display = 'flex';
+  } else {
+    document.getElementById('completeBanner').style.display = 'none';
+  }
+}
+
+function setSeverity(val) {
+  document.getElementById('severity').value = val;
+  document.getElementById('sev-high').className = 'severity-btn' + (val==='高'?' active-high':'');
+  document.getElementById('sev-mid').className  = 'severity-btn' + (val==='中'?' active-mid':'');
+  document.getElementById('sev-low').className  = 'severity-btn' + (val==='低'?' active-low':'');
+}
+
+const fields = ['carNo','occurDate','occurDept','finder','source','severity',
+  'ncContent','impact','immediate','immediateOwner','immediateDate',
+  'why0','why1','why2','why3','why4','why5',
+  'caContent','docRevision','caOwner','caDeadline','caCompleteDate','caStatus',
+  'effectiveness','effChecker','effDate','effResult','closeDate',
+  'sign1','sign2','sign3','sign4'];
+
+function saveData() {
+  const data = { status: currentStatus };
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.value;
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  const notice = document.getElementById('saveNotice');
+  notice.style.display = 'block';
+  setTimeout(() => notice.style.display = 'none', 2500);
+}
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) { setStatus(0); return; }
+  const data = JSON.parse(saved);
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && data[id] !== undefined) el.value = data[id];
+  });
+  if (data.severity) setSeverity(data.severity);
+  setStatus(data.status || 0);
+}
+
+function newRecord() {
+  if (confirm('新規作成すると現在のデータがクリアされます。よろしいですか？')) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
