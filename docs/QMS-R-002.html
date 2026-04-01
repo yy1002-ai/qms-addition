@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品質目標管理表 QMS-R-002 — 神戸電気株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0d1b2a; --navy-mid:#132338; --accent:#1e6fc4; --accent-bright:#2d8de0;
+  --gold:#c9a84c; --gold-light:#e0c06e; --green:#3aaa6e;
+  --text:#e8edf3; --text-muted:#8ca0b8; --text-dim:#5a7090;
+  --border:rgba(30,111,196,0.25); --border-light:rgba(30,111,196,0.12);
+  --card-bg:rgba(19,35,56,0.85);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(30,111,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,196,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+
+header{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo-mark{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:#fff;}
+.company-name{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;}
+.system-label{font-size:11px;color:var(--text-muted);letter-spacing:0.08em;margin-top:2px;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:rgba(30,111,196,0.1);border:1px solid var(--border);color:var(--text-muted);font-size:12px;text-decoration:none;transition:all 0.15s;}
+.back-btn:hover{color:var(--text);background:rgba(30,111,196,0.2);}
+.doc-badge{background:rgba(30,111,196,0.15);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:11px;font-family:'DM Mono',monospace;color:var(--accent-bright);}
+
+.btn{padding:8px 16px;border-radius:6px;font-size:12px;font-weight:500;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border:none;transition:all 0.15s;display:flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-bright);}
+.btn-success{background:rgba(58,170,110,0.15);border:1px solid rgba(58,170,110,0.3);color:#5cc98a;}
+.btn-success:hover{background:rgba(58,170,110,0.25);}
+
+.page-wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:40px 32px 80px;}
+.toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
+.toolbar-left{display:flex;gap:10px;flex-wrap:wrap;}
+.save-notice{background:rgba(58,170,110,0.12);border:1px solid rgba(58,170,110,0.3);border-radius:8px;padding:10px 16px;font-size:12px;color:#5cc98a;display:none;margin-bottom:16px;}
+
+/* 文書ヘッダー */
+.doc-header{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-bottom:24px;}
+.doc-id{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent-bright);letter-spacing:0.1em;margin-bottom:8px;}
+.doc-title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;margin-bottom:16px;}
+.doc-meta-row{display:flex;gap:24px;flex-wrap:wrap;}
+.doc-meta-item{font-size:12px;color:var(--text-muted);}
+.doc-meta-item span{color:var(--text);font-weight:500;}
+
+/* サマリーカード */
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.summary-card{background:var(--card-bg);border:1px solid var(--border-light);border-radius:10px;padding:18px 20px;text-align:center;}
+.summary-num{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;line-height:1;}
+.summary-label{font-size:11px;color:var(--text-muted);margin-top:6px;letter-spacing:0.05em;}
+.num-total{color:var(--accent-bright);}
+.num-achieved{color:#5cc98a;}
+.num-progress{color:var(--gold-light);}
+.num-behind{color:#f08080;}
+
+/* テーブル */
+.table-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+.table-header-bar{padding:16px 24px;border-bottom:1px solid var(--border-light);font-size:12px;font-weight:700;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;}
+.obj-table{width:100%;border-collapse:collapse;}
+.obj-table th{background:rgba(30,111,196,0.1);padding:10px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--accent-bright);border-bottom:1px solid var(--border);white-space:nowrap;}
+.obj-table td{padding:8px 10px;border-bottom:1px solid var(--border-light);vertical-align:middle;}
+.obj-table tr:last-child td{border-bottom:none;}
+.obj-table tr:hover td{background:rgba(30,111,196,0.03);}
+
+/* 入力欄 */
+input[type=text],input[type=date],input[type=number],select,textarea{
+  background:rgba(13,27,42,0.8);border:1px solid var(--border-light);border-radius:5px;
+  color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:12px;
+  padding:5px 8px;width:100%;transition:border-color 0.15s;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-bright);background:rgba(13,27,42,1);}
+select option{background:#132338;color:var(--text);}
+
+/* 進捗バー */
+.progress-wrap{display:flex;align-items:center;gap:8px;}
+.progress-bar-bg{flex:1;height:6px;background:rgba(30,111,196,0.12);border-radius:3px;overflow:hidden;}
+.progress-bar-fill{height:100%;border-radius:3px;transition:width 0.3s;}
+.progress-label{font-family:'DM Mono',monospace;font-size:10px;white-space:nowrap;min-width:32px;text-align:right;}
+
+/* 状態バッジ */
+.status-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:10px;font-weight:700;white-space:nowrap;}
+.st-achieved{background:rgba(58,170,110,0.15);color:#5cc98a;border:1px solid rgba(58,170,110,0.25);}
+.st-progress{background:rgba(30,111,196,0.15);color:var(--accent-bright);border:1px solid rgba(30,111,196,0.25);}
+.st-behind{background:rgba(220,60,60,0.15);color:#f08080;border:1px solid rgba(220,60,60,0.25);}
+.st-pending{background:rgba(90,112,144,0.15);color:var(--text-muted);border:1px solid rgba(90,112,144,0.2);}
+
+/* 削除ボタン */
+.del-btn{background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:4px;border-radius:4px;transition:all 0.15s;}
+.del-btn:hover{color:#f08080;background:rgba(220,60,60,0.1);}
+
+/* 年度・備考エリア */
+.meta-section{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:24px;}
+.meta-section-title{font-family:'Noto Serif JP',serif;font-size:16px;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border-light);}
+.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;font-weight:700;color:var(--accent-bright);letter-spacing:0.08em;text-transform:uppercase;}
+
+@media print{
+  body{background:#fff;color:#000;}
+  body::before,header,.toolbar{display:none!important;}
+  .page-wrap{padding:0;}
+  .doc-header,.table-wrap,.summary-card,.meta-section{border:1px solid #ccc;background:#fff;}
+  input,select,textarea{border:1px solid #ccc;background:#fff;color:#000;}
+  .del-btn{display:none;}
+  .progress-bar-bg{background:#eee;}
+}
+@media(max-width:900px){
+  .summary-grid{grid-template-columns:repeat(2,1fr);}
+  .meta-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-mark">KE</div>
+    <div>
+      <div class="company-name">神戸電気株式会社</div>
+      <div class="system-label">品質マネジメントシステム</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="back-btn" href="../index.html">← ダッシュボードへ戻る</a>
+    <div class="doc-badge">QMS-R-002</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- 文書ヘッダー -->
+  <div class="doc-header">
+    <div class="doc-id">LAYER 03 — 記録</div>
+    <div class="doc-title">品質目標管理表</div>
+    <div class="doc-meta-row">
+      <div class="doc-meta-item">文書番号: <span>QMS-R-002</span></div>
+      <div class="doc-meta-item">関連手順: <span>QMS-P-002</span></div>
+      <div class="doc-meta-item">管理責任者: <span>品質部長</span></div>
+      <div class="doc-meta-item">年度: <span id="headerYear">—</span></div>
+      <div class="doc-meta-item">更新日: <span id="lastUpdated">—</span></div>
+    </div>
+  </div>
+
+  <div id="saveNotice" class="save-notice">✓ データを保存しました</div>
+
+  <!-- ツールバー -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <button class="btn btn-primary" onclick="addRow()">＋ 目標を追加</button>
+      <button class="btn btn-success" onclick="saveData()">💾 保存</button>
+      <button class="btn btn-success" onclick="window.print()">🖨 印刷</button>
+    </div>
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="meta-section">
+    <div class="meta-section-title">基本情報</div>
+    <div class="meta-grid">
+      <div class="form-group">
+        <div class="form-label">年度</div>
+        <input type="text" id="fiscal-year" placeholder="例：2025年度" oninput="document.getElementById('headerYear').textContent=this.value||'—'">
+      </div>
+      <div class="form-group">
+        <div class="form-label">作成日</div>
+        <input type="date" id="created-date">
+      </div>
+      <div class="form-group">
+        <div class="form-label">承認者</div>
+        <input type="text" id="approver" placeholder="例：社長 氏名">
+      </div>
+      <div class="form-group">
+        <div class="form-label">作成者</div>
+        <input type="text" id="creator" placeholder="例：品質部長 氏名">
+      </div>
+      <div class="form-group">
+        <div class="form-label">次回見直し日</div>
+        <input type="date" id="review-date">
+      </div>
+      <div class="form-group">
+        <div class="form-label">備考</div>
+        <input type="text" id="remarks" placeholder="特記事項があれば記入">
+      </div>
+    </div>
+  </div>
+
+  <!-- サマリー -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-num num-total" id="sum-total">0</div>
+      <div class="summary-label">目標件数</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num num-achieved" id="sum-achieved">0</div>
+      <div class="summary-label">達成</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num num-progress" id="sum-progress">0</div>
+      <div class="summary-label">対応中</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-num num-behind" id="sum-behind">0</div>
+      <div class="summary-label">遅延・未達</div>
+    </div>
+  </div>
+
+  <!-- 目標管理テーブル -->
+  <div class="table-wrap">
+    <div class="table-header-bar">
+      <span>品質目標一覧</span>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);">SMART原則に基づき設定</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="obj-table" id="objTable">
+        <thead>
+          <tr>
+            <th style="width:36px;">No.</th>
+            <th style="width:80px;">目標区分</th>
+            <th style="min-width:180px;">目標内容</th>
+            <th style="width:100px;">KPI指標</th>
+            <th style="width:70px;">基準値<br>（前年）</th>
+            <th style="width:70px;">目標値</th>
+            <th style="width:70px;">現在値</th>
+            <th style="width:110px;">進捗</th>
+            <th style="width:80px;">担当部門</th>
+            <th style="width:80px;">担当者</th>
+            <th style="width:80px;">期限</th>
+            <th style="width:70px;">状態</th>
+            <th style="min-width:120px;">備考・対策</th>
+            <th style="width:36px;"></th>
+          </tr>
+        </thead>
+        <tbody id="objBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 四半期進捗確認 -->
+  <div class="meta-section">
+    <div class="meta-section-title">四半期進捗確認メモ</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+      <div class="form-group">
+        <div class="form-label">第1四半期（7月）</div>
+        <textarea id="q1" placeholder="第1四半期の進捗状況・課題を記入" style="min-height:70px;font-size:12px;"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-label">第2四半期（10月）</div>
+        <textarea id="q2" placeholder="第2四半期の進捗状況・中間評価を記入" style="min-height:70px;font-size:12px;"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-label">第3四半期（1月）</div>
+        <textarea id="q3" placeholder="第3四半期の進捗状況・最終確認を記入" style="min-height:70px;font-size:12px;"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-label">年度末評価（3月）</div>
+        <textarea id="q4" placeholder="年間達成状況・次年度への課題・改善提案を記入" style="min-height:70px;font-size:12px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'qms_r002';
+let rowCounter = 0;
+
+const categories = ['顧客満足','製品品質','納期遵守','内部監査','人材育成','コスト','環境・安全','その他'];
+const depts = ['品質部','製造部','販売部','設計開発部','購買部','人事部','全部門'];
+const statuses = ['未着手','対応中','達成','遅延','見直し中'];
+
+function getStatusClass(s) {
+  if (s === '達成')   return 'st-achieved';
+  if (s === '対応中') return 'st-progress';
+  if (s === '遅延')   return 'st-behind';
+  return 'st-pending';
+}
+
+function getProgressColor(pct) {
+  if (pct >= 100) return '#5cc98a';
+  if (pct >= 60)  return '#2d8de0';
+  if (pct >= 30)  return '#e0c06e';
+  return '#f08080';
+}
+
+function calcProgress(tr) {
+  const base   = parseFloat(tr.querySelector('.inp-base').value)   || 0;
+  const target = parseFloat(tr.querySelector('.inp-target').value) || 0;
+  const current= parseFloat(tr.querySelector('.inp-current').value)|| 0;
+
+  let pct = 0;
+  if (target !== base) {
+    pct = Math.round(((current - base) / (target - base)) * 100);
+    pct = Math.max(0, Math.min(150, pct));
+  } else if (current >= target && target > 0) {
+    pct = 100;
+  }
+
+  const fill  = tr.querySelector('.progress-bar-fill');
+  const label = tr.querySelector('.progress-label');
+  const color = getProgressColor(pct);
+  fill.style.width  = Math.min(pct, 100) + '%';
+  fill.style.background = color;
+  label.style.color = color;
+  label.textContent = pct + '%';
+
+  updateSummary();
+}
+
+function updateSummary() {
+  const rows = document.getElementById('objBody').querySelectorAll('tr');
+  let total = rows.length, achieved = 0, progress = 0, behind = 0;
+  rows.forEach(tr => {
+    const s = tr.querySelector('.inp-status').value;
+    if (s === '達成')   achieved++;
+    if (s === '対応中') progress++;
+    if (s === '遅延')   behind++;
+  });
+  document.getElementById('sum-total').textContent    = total;
+  document.getElementById('sum-achieved').textContent = achieved;
+  document.getElementById('sum-progress').textContent = progress;
+  document.getElementById('sum-behind').textContent   = behind;
+}
+
+function addRow(data = {}) {
+  rowCounter++;
+  const n = data.rowNum || rowCounter;
+  const tbody = document.getElementById('objBody');
+  const tr = document.createElement('tr');
+  tr.dataset.rowId = n;
+
+  const statusVal = data.status || '未着手';
+  const statusClass = getStatusClass(statusVal);
+
+  tr.innerHTML = `
+    <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);">${n}</td>
+    <td>
+      <select>
+        ${categories.map(c=>`<option value="${c}" ${data.category===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+    </td>
+    <td><textarea rows="2" placeholder="目標内容を記入">${data.content||''}</textarea></td>
+    <td><input type="text" value="${data.kpi||''}" placeholder="指標名"></td>
+    <td><input type="number" class="inp-base"    value="${data.base||''}"    placeholder="0" oninput="calcProgress(this.closest('tr'))"></td>
+    <td><input type="number" class="inp-target"  value="${data.target||''}"  placeholder="0" oninput="calcProgress(this.closest('tr'))"></td>
+    <td><input type="number" class="inp-current" value="${data.current||''}" placeholder="0" oninput="calcProgress(this.closest('tr'))"></td>
+    <td>
+      <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%;background:#5a7090;"></div></div>
+        <div class="progress-label" style="color:var(--text-dim);">—</div>
+      </div>
+    </td>
+    <td>
+      <select>
+        ${depts.map(d=>`<option value="${d}" ${data.dept===d?'selected':''}>${d}</option>`).join('')}
+      </select>
+    </td>
+    <td><input type="text" value="${data.owner||''}" placeholder="担当者"></td>
+    <td><input type="date" value="${data.deadline||''}"></td>
+    <td>
+      <select class="inp-status" onchange="updateSummary()">
+        ${statuses.map(s=>`<option value="${s}" ${statusVal===s?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td><textarea rows="2" placeholder="備考・対策">${data.note||''}</textarea></td>
+    <td><button class="del-btn" onclick="delRow(this)">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+
+  // 初期進捗計算
+  if (data.base || data.target || data.current) {
+    calcProgress(tr);
+  }
+  updateSummary();
+}
+
+function delRow(btn) {
+  if (confirm('この目標を削除しますか？')) {
+    btn.closest('tr').remove();
+    updateSummary();
+  }
+}
+
+function saveData() {
+  const rows = [];
+  document.getElementById('objBody').querySelectorAll('tr').forEach((tr, i) => {
+    const inputs = tr.querySelectorAll('input,select,textarea');
+    rows.push({
+      rowNum:   tr.dataset.rowId,
+      category: inputs[0].value,
+      content:  inputs[1].value,
+      kpi:      inputs[2].value,
+      base:     inputs[3].value,
+      target:   inputs[4].value,
+      current:  inputs[5].value,
+      dept:     inputs[6].value,
+      owner:    inputs[7].value,
+      deadline: inputs[8].value,
+      status:   inputs[9].value,
+      note:     inputs[10].value,
+    });
+  });
+
+  const data = {
+    'fiscal-year':  document.getElementById('fiscal-year').value,
+    'created-date': document.getElementById('created-date').value,
+    'approver':     document.getElementById('approver').value,
+    'creator':      document.getElementById('creator').value,
+    'review-date':  document.getElementById('review-date').value,
+    'remarks':      document.getElementById('remarks').value,
+    'q1': document.getElementById('q1').value,
+    'q2': document.getElementById('q2').value,
+    'q3': document.getElementById('q3').value,
+    'q4': document.getElementById('q4').value,
+    rows,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+  const now = new Date().toLocaleDateString('ja-JP');
+  document.getElementById('lastUpdated').textContent = now;
+
+  const notice = document.getElementById('saveNotice');
+  notice.style.display = 'block';
+  setTimeout(() => notice.style.display = 'none', 2500);
+}
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    const d = JSON.parse(saved);
+    ['fiscal-year','created-date','approver','creator','review-date','remarks','q1','q2','q3','q4'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && d[id]) el.value = d[id];
+    });
+    document.getElementById('headerYear').textContent = d['fiscal-year'] || '—';
+    (d.rows || []).forEach(r => addRow(r));
+    rowCounter = (d.rows || []).length;
+  } else {
+    // サンプルデータ
+    addRow({ category:'顧客満足', content:'顧客クレーム件数の削減', kpi:'クレーム件数（件/年）', base:'10', target:'8', current:'6', dept:'販売部', owner:'販売部長', deadline:'2026-03-31', status:'達成', note:'' });
+    addRow({ category:'製品品質', content:'製造工程の不良品率低減', kpi:'不良品率（%）', base:'0.8', target:'0.5', current:'0.6', dept:'製造部', owner:'製造部長', deadline:'2026-03-31', status:'対応中', note:'工程改善を継続中' });
+    addRow({ category:'納期遵守', content:'納期遵守率の向上', kpi:'納期遵守率（%）', base:'95', target:'98', current:'96', dept:'製造部', owner:'製造部長', deadline:'2026-03-31', status:'対応中', note:'' });
+    addRow({ category:'内部監査', content:'是正処置の完了率維持', kpi:'是正完了率（%）', base:'90', target:'100', current:'100', dept:'品質部', owner:'品質部長', deadline:'2026-03-31', status:'達成', note:'' });
+    addRow({ category:'人材育成', content:'教育訓練計画の実施率向上', kpi:'計画実施率（%）', base:'80', target:'90', current:'75', dept:'人事部', owner:'人事部長', deadline:'2026-03-31', status:'遅延', note:'下半期に集中実施予定' });
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
