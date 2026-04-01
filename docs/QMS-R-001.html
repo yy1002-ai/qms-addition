@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リスク登録簿 QMS-R-001 — 神戸電気株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0d1b2a; --accent:#1e6fc4; --accent-bright:#2d8de0;
+  --gold-light:#e0c06e; --text:#e8edf3; --text-muted:#8ca0b8; --text-dim:#5a7090;
+  --border:rgba(30,111,196,0.25); --border-light:rgba(30,111,196,0.12); --card-bg:rgba(19,35,56,0.85);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(30,111,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,196,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+header{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo-mark{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:#fff;}
+.company-name{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;}
+.system-label{font-size:11px;color:var(--text-muted);letter-spacing:0.08em;margin-top:2px;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:rgba(30,111,196,0.1);border:1px solid var(--border);color:var(--text-muted);font-size:12px;text-decoration:none;transition:all 0.15s;}
+.back-btn:hover{color:var(--text);background:rgba(30,111,196,0.2);}
+.doc-badge{background:rgba(30,111,196,0.15);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:11px;font-family:'DM Mono',monospace;color:var(--accent-bright);}
+.btn{padding:8px 16px;border-radius:6px;font-size:12px;font-weight:500;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border:none;transition:all 0.15s;display:flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-bright);}
+.btn-danger{background:rgba(220,60,60,0.15);border:1px solid rgba(220,60,60,0.3);color:#f08080;}
+.btn-danger:hover{background:rgba(220,60,60,0.25);}
+.btn-success{background:rgba(58,170,110,0.15);border:1px solid rgba(58,170,110,0.3);color:#5cc98a;}
+.btn-success:hover{background:rgba(58,170,110,0.25);}
+
+.page-wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:40px 32px 80px;}
+
+/* 文書ヘッダー */
+.doc-header{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-bottom:24px;}
+.doc-id{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent-bright);letter-spacing:0.1em;margin-bottom:8px;}
+.doc-title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;margin-bottom:16px;}
+.doc-meta-row{display:flex;gap:24px;flex-wrap:wrap;}
+.doc-meta-item{font-size:12px;color:var(--text-muted);}
+.doc-meta-item span{color:var(--text);font-weight:500;}
+
+/* ツールバー */
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap;}
+.toolbar-left{display:flex;gap:10px;flex-wrap:wrap;}
+.toolbar-right{display:flex;gap:10px;}
+
+/* テーブル */
+.table-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+.table-header{padding:16px 24px;border-bottom:1px solid var(--border-light);font-size:12px;font-weight:700;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;}
+.risk-table{width:100%;border-collapse:collapse;}
+.risk-table th{background:rgba(30,111,196,0.1);padding:10px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--accent-bright);border-bottom:1px solid var(--border);white-space:nowrap;}
+.risk-table td{padding:8px 10px;border-bottom:1px solid var(--border-light);vertical-align:top;}
+.risk-table tr:last-child td{border-bottom:none;}
+.risk-table tr:hover td{background:rgba(30,111,196,0.04);}
+
+/* 入力フォーム */
+input[type=text], input[type=date], input[type=number], select, textarea {
+  background:rgba(13,27,42,0.8);
+  border:1px solid var(--border-light);
+  border-radius:5px;
+  color:var(--text);
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:12px;
+  padding:5px 8px;
+  width:100%;
+  transition:border-color 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline:none;
+  border-color:var(--accent-bright);
+  background:rgba(13,27,42,1);
+}
+select option{background:#132338;color:var(--text);}
+textarea{resize:vertical;min-height:52px;}
+
+/* リスクスコアバッジ */
+.score-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;text-align:center;min-width:36px;}
+.score-high{background:rgba(220,60,60,0.2);color:#f08080;border:1px solid rgba(220,60,60,0.3);}
+.score-mid{background:rgba(201,168,76,0.2);color:var(--gold-light);border:1px solid rgba(201,168,76,0.3);}
+.score-low{background:rgba(58,170,110,0.2);color:#5cc98a;border:1px solid rgba(58,170,110,0.3);}
+
+/* 削除ボタン */
+.del-btn{background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:4px;border-radius:4px;transition:all 0.15s;}
+.del-btn:hover{color:#f08080;background:rgba(220,60,60,0.1);}
+
+/* 凡例 */
+.legend{display:flex;gap:16px;font-size:11px;margin-top:12px;}
+.legend-item{display:flex;align-items:center;gap:6px;}
+.legend-dot{width:10px;height:10px;border-radius:2px;}
+
+/* 保存通知 */
+.save-notice{background:rgba(58,170,110,0.12);border:1px solid rgba(58,170,110,0.3);border-radius:8px;padding:10px 16px;font-size:12px;color:#5cc98a;display:none;margin-bottom:16px;}
+
+@media print {
+  body{background:#fff;color:#000;}
+  body::before{display:none;}
+  header, .toolbar, .del-btn, .btn{display:none!important;}
+  .page-wrap{padding:0;}
+  .doc-header, .table-wrap{border:1px solid #ccc;background:#fff;}
+  input, select, textarea{border:1px solid #ccc;background:#fff;color:#000;}
+  .score-high{color:#c00;}
+  .score-mid{color:#b8860b;}
+  .score-low{color:#2e7d32;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="logo-mark">KE</div>
+    <div>
+      <div class="company-name">神戸電気株式会社</div>
+      <div class="system-label">品質マネジメントシステム</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="back-btn" href="../index.html">← ダッシュボードへ戻る</a>
+    <div class="doc-badge">QMS-R-001</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <div class="doc-header">
+    <div class="doc-id">LAYER 03 — 記録</div>
+    <div class="doc-title">リスク登録簿</div>
+    <div class="doc-meta-row">
+      <div class="doc-meta-item">文書番号: <span>QMS-R-001</span></div>
+      <div class="doc-meta-item">関連手順: <span>QMS-P-001</span></div>
+      <div class="doc-meta-item">管理責任者: <span>品質部長</span></div>
+      <div class="doc-meta-item">更新日: <span id="lastUpdated">—</span></div>
+    </div>
+  </div>
+
+  <div id="saveNotice" class="save-notice">✓ データを保存しました</div>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <button class="btn btn-primary" onclick="addRow()">＋ リスクを追加</button>
+      <button class="btn btn-success" onclick="saveData()">💾 保存</button>
+      <button class="btn btn-success" onclick="window.print()">🖨 印刷</button>
+    </div>
+    <div class="toolbar-right">
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#f08080"></div>高（15〜25）</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--gold-light)"></div>中（8〜14）</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5cc98a"></div>低（1〜7）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-header">
+      <span>リスク及び機会 一覧</span>
+      <span id="riskCount" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent-bright)">0 件</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="risk-table" id="riskTable">
+        <thead>
+          <tr>
+            <th style="width:36px;">No.</th>
+            <th style="width:80px;">登録日</th>
+            <th style="width:70px;">種別</th>
+            <th style="width:120px;">対象部門</th>
+            <th style="min-width:180px;">リスク・機会の内容</th>
+            <th style="width:60px;">発生<br>可能性<br>（L）</th>
+            <th style="width:60px;">影響度<br>（I）</th>
+            <th style="width:60px;">スコア<br>L×I</th>
+            <th style="min-width:160px;">対応策</th>
+            <th style="width:80px;">担当者</th>
+            <th style="width:80px;">期限</th>
+            <th style="width:70px;">状態</th>
+            <th style="width:36px;"></th>
+          </tr>
+        </thead>
+        <tbody id="riskBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'qms_r001_risks';
+let risks = [];
+let rowCounter = 0;
+
+const depts = ['役員室','品質部','製造部','販売部','設計開発部','購買部','人事部','全部門'];
+const statuses = ['特定済み','対応中','完了','監視中','受容'];
+
+function getScoreClass(score) {
+  if (score >= 15) return 'score-high';
+  if (score >= 8)  return 'score-mid';
+  return 'score-low';
+}
+
+function addRow(data = {}) {
+  rowCounter++;
+  const id = data.id || rowCounter;
+  const tbody = document.getElementById('riskBody');
+  const tr = document.createElement('tr');
+  tr.dataset.rowId = id;
+
+  const L = parseInt(data.likelihood) || 1;
+  const I = parseInt(data.impact) || 1;
+  const score = L * I;
+  const scoreClass = getScoreClass(score);
+
+  tr.innerHTML = `
+    <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);">${id}</td>
+    <td><input type="date" value="${data.date || today()}" onchange="calcScore(this)"></td>
+    <td>
+      <select onchange="calcScore(this)">
+        <option value="リスク" ${(data.type||'リスク')==='リスク'?'selected':''}>リスク</option>
+        <option value="機会"   ${data.type==='機会'?'selected':''}>機会</option>
+      </select>
+    </td>
+    <td>
+      <select onchange="calcScore(this)">
+        ${depts.map(d=>`<option value="${d}" ${data.dept===d?'selected':''}>${d}</option>`).join('')}
+      </select>
+    </td>
+    <td><textarea rows="2" placeholder="リスク・機会の内容を記入">${data.content||''}</textarea></td>
+    <td>
+      <select class="likelihood" onchange="calcScore(this)">
+        ${[1,2,3,4,5].map(n=>`<option value="${n}" ${L===n?'selected':''}>${n}</option>`).join('')}
+      </select>
+    </td>
+    <td>
+      <select class="impact" onchange="calcScore(this)">
+        ${[1,2,3,4,5].map(n=>`<option value="${n}" ${I===n?'selected':''}>${n}</option>`).join('')}
+      </select>
+    </td>
+    <td style="text-align:center;"><span class="score-badge ${scoreClass}">${score}</span></td>
+    <td><textarea rows="2" placeholder="対応策を記入">${data.action||''}</textarea></td>
+    <td><input type="text" value="${data.owner||''}" placeholder="担当者"></td>
+    <td><input type="date" value="${data.deadline||''}"></td>
+    <td>
+      <select onchange="calcScore(this)">
+        ${statuses.map(s=>`<option value="${s}" ${data.status===s?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td><button class="del-btn" onclick="delRow(this)">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+  updateCount();
+}
+
+function calcScore(el) {
+  const tr = el.closest('tr');
+  const L = parseInt(tr.querySelector('.likelihood').value);
+  const I = parseInt(tr.querySelector('.impact').value);
+  const score = L * I;
+  const badge = tr.querySelector('.score-badge');
+  badge.textContent = score;
+  badge.className = 'score-badge ' + getScoreClass(score);
+}
+
+function delRow(btn) {
+  if (confirm('このリスクを削除しますか？')) {
+    btn.closest('tr').remove();
+    updateCount();
+  }
+}
+
+function updateCount() {
+  const n = document.getElementById('riskBody').children.length;
+  document.getElementById('riskCount').textContent = n + ' 件';
+}
+
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function saveData() {
+  const rows = [];
+  document.getElementById('riskBody').querySelectorAll('tr').forEach(tr => {
+    const inputs = tr.querySelectorAll('input,select,textarea');
+    rows.push({
+      id: tr.dataset.rowId,
+      date:       inputs[0].value,
+      type:       inputs[1].value,
+      dept:       inputs[2].value,
+      content:    inputs[3].value,
+      likelihood: inputs[4].value,
+      impact:     inputs[5].value,
+      action:     inputs[6].value,
+      owner:      inputs[7].value,
+      deadline:   inputs[8].value,
+      status:     inputs[9].value,
+    });
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
+  document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString('ja-JP');
+  const notice = document.getElementById('saveNotice');
+  notice.style.display = 'block';
+  setTimeout(() => notice.style.display = 'none', 2500);
+}
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    const rows = JSON.parse(saved);
+    rows.forEach(r => { addRow(r); });
+    rowCounter = rows.length;
+  } else {
+    // サンプルデータ
+    addRow({ date: today(), type:'リスク', dept:'製造部', content:'主要仕入先の供給停止リスク', likelihood:'3', impact:'4', action:'代替仕入先2社を確保する', owner:'購買部長', deadline:'2025-09-30', status:'対応中' });
+    addRow({ date: today(), type:'リスク', dept:'品質部', content:'熟練作業員の退職による技術継承不足', likelihood:'3', impact:'3', action:'OJT計画の策定・技術マニュアルの整備', owner:'人事部長', deadline:'2025-12-31', status:'特定済み' });
+    addRow({ date: today(), type:'機会', dept:'販売部', content:'新規市場（EV関連部品）への参入機会', likelihood:'2', impact:'5', action:'市場調査を実施し参入可否を検討', owner:'販売部長', deadline:'2025-10-31', status:'監視中' });
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
