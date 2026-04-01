@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マネジメントレビュー議事録 QMS-R-004 — 神戸電気株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1b2a;--accent:#1e6fc4;--accent-bright:#2d8de0;--gold-light:#e0c06e;--text:#e8edf3;--text-muted:#8ca0b8;--text-dim:#5a7090;--border:rgba(30,111,196,0.25);--border-light:rgba(30,111,196,0.12);--card-bg:rgba(19,35,56,0.85);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(30,111,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,196,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+header{position:sticky;top:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo-mark{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:#fff;}
+.company-name{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;}
+.system-label{font-size:11px;color:var(--text-muted);letter-spacing:0.08em;margin-top:2px;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:rgba(30,111,196,0.1);border:1px solid var(--border);color:var(--text-muted);font-size:12px;text-decoration:none;transition:all 0.15s;}
+.back-btn:hover{color:var(--text);background:rgba(30,111,196,0.2);}
+.doc-badge{background:rgba(30,111,196,0.15);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:11px;font-family:'DM Mono',monospace;color:var(--accent-bright);}
+.btn{padding:8px 16px;border-radius:6px;font-size:12px;font-weight:500;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border:none;transition:all 0.15s;display:flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-bright);}
+.btn-success{background:rgba(58,170,110,0.15);border:1px solid rgba(58,170,110,0.3);color:#5cc98a;}
+.btn-success:hover{background:rgba(58,170,110,0.25);}
+.btn-sm{padding:5px 10px;font-size:11px;}
+
+.page-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 32px 80px;}
+
+.toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.save-notice{background:rgba(58,170,110,0.12);border:1px solid rgba(58,170,110,0.3);border-radius:8px;padding:10px 16px;font-size:12px;color:#5cc98a;display:none;margin-bottom:16px;}
+
+/* セクション共通 */
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-bottom:20px;}
+.section-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent-bright);letter-spacing:0.1em;margin-bottom:6px;}
+.section-title{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border-light);margin-bottom:20px;}
+
+/* グリッドフォーム */
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.form-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:11px;font-weight:700;color:var(--accent-bright);letter-spacing:0.08em;text-transform:uppercase;}
+input[type=text],input[type=date],select,textarea{background:rgba(13,27,42,0.8);border:1px solid var(--border-light);border-radius:6px;color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;padding:8px 12px;width:100%;transition:border-color 0.15s;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-bright);background:rgba(13,27,42,1);}
+select option{background:#132338;}
+textarea{resize:vertical;min-height:80px;line-height:1.7;}
+
+/* 出席者チェックボックス */
+.attendee-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.attendee-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(13,27,42,0.5);border:1px solid var(--border-light);border-radius:6px;cursor:pointer;transition:all 0.15s;}
+.attendee-item:hover{border-color:var(--border);}
+.attendee-item.checked{background:rgba(30,111,196,0.12);border-color:rgba(30,111,196,0.4);}
+.attendee-item input[type=checkbox]{width:14px;height:14px;accent-color:var(--accent);}
+.attendee-name{font-size:12px;font-weight:500;}
+
+/* インプット項目 */
+.input-section{display:flex;flex-direction:column;gap:8px;}
+.input-item{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--border-light);}
+.input-item:last-child{border-bottom:none;}
+.input-item-label{font-size:12px;font-weight:700;color:var(--text-muted);padding-top:8px;}
+
+/* アウトプット（決定事項）テーブル */
+.decision-table{width:100%;border-collapse:collapse;}
+.decision-table th{background:rgba(30,111,196,0.1);padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--accent-bright);border-bottom:1px solid var(--border);letter-spacing:0.06em;}
+.decision-table td{padding:7px 10px;border-bottom:1px solid var(--border-light);vertical-align:top;}
+.decision-table tr:last-child td{border-bottom:none;}
+.del-btn{background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:3px;border-radius:4px;transition:all 0.15s;}
+.del-btn:hover{color:#f08080;}
+
+/* 署名欄 */
+.sign-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;}
+.sign-box{border:1px solid var(--border-light);border-radius:8px;padding:14px 16px;}
+.sign-role{font-size:11px;color:var(--text-muted);margin-bottom:4px;}
+.sign-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.sign-line{border-top:1px solid var(--border-light);padding-top:8px;font-size:11px;color:var(--text-dim);}
+
+@media print{
+  body{background:#fff;color:#000;}
+  body::before,header,.toolbar{display:none!important;}
+  .page-wrap{padding:0;}
+  .section{border:1px solid #ccc;background:#fff;}
+  input,select,textarea{border:1px solid #ccc;background:#fff;color:#000;}
+  .attendee-item{border:1px solid #ccc;}
+  .del-btn,.btn{display:none!important;}
+}
+@media(max-width:700px){.form-grid,.form-grid-3,.attendee-grid,.sign-grid{grid-template-columns:1fr;}.input-item{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="logo-mark">KE</div>
+    <div>
+      <div class="company-name">神戸電気株式会社</div>
+      <div class="system-label">品質マネジメントシステム</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="back-btn" href="../index.html">← ダッシュボードへ戻る</a>
+    <div class="doc-badge">QMS-R-004</div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <div id="saveNotice" class="save-notice">✓ データを保存しました</div>
+
+  <div class="toolbar">
+    <button class="btn btn-success" onclick="saveData()">💾 保存</button>
+    <button class="btn btn-success" onclick="window.print()">🖨 印刷</button>
+    <button class="btn btn-primary" onclick="newRecord()">📄 新規作成</button>
+  </div>
+
+  <!-- 1. 基本情報 -->
+  <div class="section">
+    <div class="section-num">SECTION 01</div>
+    <div class="section-title">マネジメントレビュー議事録</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <div class="form-label">文書番号</div>
+        <input type="text" id="docNo" value="QMS-R-004" readonly style="color:var(--text-dim);">
+      </div>
+      <div class="form-group">
+        <div class="form-label">レビュー回数</div>
+        <input type="text" id="reviewNo" placeholder="例：第1回（2025年度）">
+      </div>
+      <div class="form-group">
+        <div class="form-label">開催日</div>
+        <input type="date" id="reviewDate">
+      </div>
+      <div class="form-group">
+        <div class="form-label">開催場所</div>
+        <input type="text" id="reviewPlace" placeholder="例：本社会議室A">
+      </div>
+      <div class="form-group">
+        <div class="form-label">開始時刻</div>
+        <input type="text" id="startTime" placeholder="例：14:00">
+      </div>
+      <div class="form-group">
+        <div class="form-label">終了時刻</div>
+        <input type="text" id="endTime" placeholder="例：16:30">
+      </div>
+      <div class="form-group">
+        <div class="form-label">議長（社長）</div>
+        <input type="text" id="chairman" placeholder="氏名を入力">
+      </div>
+      <div class="form-group">
+        <div class="form-label">記録者</div>
+        <input type="text" id="recorder" placeholder="氏名を入力">
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 出席者 -->
+  <div class="section">
+    <div class="section-num">SECTION 02</div>
+    <div class="section-title">出席者</div>
+    <div class="attendee-grid">
+      <label class="attendee-item" onclick="toggleCheck(this)">
+        <input type="checkbox" checked>
+        <span class="attendee-name">社長</span>
+      </label>
+      <label class="attendee-item checked" onclick="toggleCheck(this)">
+        <input type="checkbox" checked>
+        <span class="attendee-name">品質部長</span>
+      </label>
+      <label class="attendee-item" onclick="toggleCheck(this)">
+        <input type="checkbox">
+        <span class="attendee-name">製造部長</span>
+      </label>
+      <label class="attendee-item" onclick="toggleCheck(this)">
+        <input type="checkbox">
+        <span class="attendee-name">販売部長</span>
+      </label>
+      <label class="attendee-item" onclick="toggleCheck(this)">
+        <input type="checkbox">
+        <span class="attendee-name">設計開発部長</span>
+      </label>
+      <label class="attendee-item" onclick="toggleCheck(this)">
+        <input type="checkbox">
+        <span class="attendee-name">購買部長</span>
+      </label>
+      <label class="attendee-item" onclick="toggleCheck(this)">
+        <input type="checkbox">
+        <span class="attendee-name">人事部長</span>
+      </label>
+      <div class="form-group" style="grid-column:auto;">
+        <input type="text" id="otherAttendee" placeholder="その他出席者">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. インプット情報 -->
+  <div class="section">
+    <div class="section-num">SECTION 03</div>
+    <div class="section-title">インプット情報（ISO 9001:2026 箇条9.3.2）</div>
+    <div class="input-section">
+      <div class="input-item">
+        <div class="input-item-label">① 前回レビューの<br>フォローアップ</div>
+        <textarea id="in01" placeholder="前回決定事項の実施状況を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">② 外部・内部の<br>課題の変化</div>
+        <textarea id="in02" placeholder="市場・規制・組織等の変化を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">③ 顧客満足・<br>フィードバック</div>
+        <textarea id="in03" placeholder="顧客満足度調査結果・クレーム件数等を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">④ 品質目標<br>達成状況</div>
+        <textarea id="in04" placeholder="各品質目標の進捗・達成状況を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">⑤ プロセス・<br>製品パフォーマンス</div>
+        <textarea id="in05" placeholder="プロセス指標・不良率・納期遵守率等を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">⑥ 不適合・<br>是正処置状況</div>
+        <textarea id="in06" placeholder="不適合件数・是正処置の完了状況を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">⑦ 内部監査結果</div>
+        <textarea id="in07" placeholder="監査指摘件数・主要所見を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">⑧ 外部提供者<br>パフォーマンス</div>
+        <textarea id="in08" placeholder="主要仕入先の品質・納期等の評価を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">⑨ 資源の妥当性</div>
+        <textarea id="in09" placeholder="人材・設備・予算等の充足状況を記入"></textarea>
+      </div>
+      <div class="input-item">
+        <div class="input-item-label">⑩ リスク及び機会<br>取り組み状況</div>
+        <textarea id="in10" placeholder="リスク登録簿の最新状況・未対応リスクを記入"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 審議内容 -->
+  <div class="section">
+    <div class="section-num">SECTION 04</div>
+    <div class="section-title">審議内容・討議事項</div>
+    <div class="form-group">
+      <textarea id="discussion" placeholder="主要な討議事項・意見・議論の内容を記入" style="min-height:120px;"></textarea>
+    </div>
+  </div>
+
+  <!-- 5. アウトプット（決定事項） -->
+  <div class="section">
+    <div class="section-num">SECTION 05</div>
+    <div class="section-title">アウトプット — 決定事項（ISO 9001:2026 箇条9.3.3）</div>
+    <div style="overflow-x:auto;margin-bottom:12px;">
+      <table class="decision-table" id="decisionTable">
+        <thead>
+          <tr>
+            <th style="width:36px;">No.</th>
+            <th style="width:70px;">区分</th>
+            <th style="min-width:200px;">決定事項の内容</th>
+            <th style="width:90px;">担当部門</th>
+            <th style="width:80px;">担当者</th>
+            <th style="width:90px;">期限</th>
+            <th style="width:70px;">状態</th>
+            <th style="width:36px;"></th>
+          </tr>
+        </thead>
+        <tbody id="decisionBody"></tbody>
+      </table>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="addDecision()">＋ 決定事項を追加</button>
+  </div>
+
+  <!-- 6. QMS総合評価 -->
+  <div class="section">
+    <div class="section-num">SECTION 06</div>
+    <div class="section-title">QMS総合評価</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <div class="form-label">QMSの適切性</div>
+        <select id="appropriateness">
+          <option value="">— 選択 —</option>
+          <option>適切である</option>
+          <option>概ね適切である</option>
+          <option>改善が必要である</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">QMSの妥当性</div>
+        <select id="adequacy">
+          <option value="">— 選択 —</option>
+          <option>妥当である</option>
+          <option>概ね妥当である</option>
+          <option>改善が必要である</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">QMSの有効性</div>
+        <select id="effectiveness">
+          <option value="">— 選択 —</option>
+          <option>有効である</option>
+          <option>概ね有効である</option>
+          <option>改善が必要である</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">次回レビュー予定</div>
+        <input type="date" id="nextReview">
+      </div>
+      <div class="form-group full">
+        <div class="form-label">総括コメント</div>
+        <textarea id="summary" placeholder="社長による総括コメントを記入"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 署名欄 -->
+  <div class="section">
+    <div class="section-num">SECTION 07</div>
+    <div class="section-title">承認・確認</div>
+    <div class="sign-grid">
+      <div class="sign-box">
+        <div class="sign-role">議長・承認者</div>
+        <div class="sign-name">社長</div>
+        <div class="sign-line">署名: ________________</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-role">作成者</div>
+        <div class="sign-name">品質部長</div>
+        <div class="sign-line">署名: ________________</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-role">記録者</div>
+        <div class="sign-name" id="recorderSign">—</div>
+        <div class="sign-line">署名: ________________</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'qms_r004';
+let decisionCounter = 0;
+
+function toggleCheck(label) {
+  const cb = label.querySelector('input[type=checkbox]');
+  cb.checked = !cb.checked;
+  label.classList.toggle('checked', cb.checked);
+}
+
+// 初期化でチェック済みにする
+document.querySelectorAll('.attendee-item input:checked').forEach(cb => {
+  cb.closest('.attendee-item').classList.add('checked');
+});
+
+function addDecision(data = {}) {
+  decisionCounter++;
+  const tbody = document.getElementById('decisionBody');
+  const tr = document.createElement('tr');
+  const categories = ['改善事項','QMS変更','資源確保','その他'];
+  const statuses = ['未着手','対応中','完了'];
+  const depts = ['役員室','品質部','製造部','販売部','設計開発部','購買部','人事部','全部門'];
+
+  tr.innerHTML = `
+    <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);">${decisionCounter}</td>
+    <td>
+      <select>
+        ${categories.map(c=>`<option value="${c}" ${data.category===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+    </td>
+    <td><textarea rows="2" placeholder="決定事項の内容">${data.content||''}</textarea></td>
+    <td>
+      <select>
+        ${depts.map(d=>`<option value="${d}" ${data.dept===d?'selected':''}>${d}</option>`).join('')}
+      </select>
+    </td>
+    <td><input type="text" value="${data.owner||''}" placeholder="担当者"></td>
+    <td><input type="date" value="${data.deadline||''}"></td>
+    <td>
+      <select>
+        ${statuses.map(s=>`<option value="${s}" ${data.status===s?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td><button class="del-btn" onclick="this.closest('tr').remove()">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function saveData() {
+  const decisions = [];
+  document.getElementById('decisionBody').querySelectorAll('tr').forEach(tr => {
+    const inputs = tr.querySelectorAll('input,select,textarea');
+    decisions.push({ category:inputs[0].value, content:inputs[1].value, dept:inputs[2].value, owner:inputs[3].value, deadline:inputs[4].value, status:inputs[5].value });
+  });
+
+  const attendees = [];
+  document.querySelectorAll('.attendee-item input:checked').forEach(cb => {
+    attendees.push(cb.closest('.attendee-item').querySelector('.attendee-name').textContent);
+  });
+
+  const data = {
+    reviewNo: document.getElementById('reviewNo').value,
+    reviewDate: document.getElementById('reviewDate').value,
+    reviewPlace: document.getElementById('reviewPlace').value,
+    startTime: document.getElementById('startTime').value,
+    endTime: document.getElementById('endTime').value,
+    chairman: document.getElementById('chairman').value,
+    recorder: document.getElementById('recorder').value,
+    attendees,
+    in01: document.getElementById('in01').value,
+    in02: document.getElementById('in02').value,
+    in03: document.getElementById('in03').value,
+    in04: document.getElementById('in04').value,
+    in05: document.getElementById('in05').value,
+    in06: document.getElementById('in06').value,
+    in07: document.getElementById('in07').value,
+    in08: document.getElementById('in08').value,
+    in09: document.getElementById('in09').value,
+    in10: document.getElementById('in10').value,
+    discussion: document.getElementById('discussion').value,
+    appropriateness: document.getElementById('appropriateness').value,
+    adequacy: document.getElementById('adequacy').value,
+    effectiveness: document.getElementById('effectiveness').value,
+    nextReview: document.getElementById('nextReview').value,
+    summary: document.getElementById('summary').value,
+    decisions,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  document.getElementById('recorderSign').textContent = data.recorder || '—';
+  const notice = document.getElementById('saveNotice');
+  notice.style.display = 'block';
+  setTimeout(() => notice.style.display = 'none', 2500);
+}
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) { addDecision(); return; }
+  const d = JSON.parse(saved);
+  document.getElementById('reviewNo').value    = d.reviewNo || '';
+  document.getElementById('reviewDate').value  = d.reviewDate || '';
+  document.getElementById('reviewPlace').value = d.reviewPlace || '';
+  document.getElementById('startTime').value   = d.startTime || '';
+  document.getElementById('endTime').value     = d.endTime || '';
+  document.getElementById('chairman').value    = d.chairman || '';
+  document.getElementById('recorder').value    = d.recorder || '';
+  document.getElementById('recorderSign').textContent = d.recorder || '—';
+  for (let i = 1; i <= 10; i++) {
+    const el = document.getElementById('in0'+i);
+    if (el) el.value = d['in0'+i] || '';
+  }
+  document.getElementById('discussion').value      = d.discussion || '';
+  document.getElementById('appropriateness').value = d.appropriateness || '';
+  document.getElementById('adequacy').value        = d.adequacy || '';
+  document.getElementById('effectiveness').value   = d.effectiveness || '';
+  document.getElementById('nextReview').value      = d.nextReview || '';
+  document.getElementById('summary').value         = d.summary || '';
+  (d.decisions || []).forEach(dec => addDecision(dec));
+  if ((d.decisions || []).length === 0) addDecision();
+}
+
+function newRecord() {
+  if (confirm('新規作成すると現在のデータがクリアされます。よろしいですか？')) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
